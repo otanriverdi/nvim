@@ -27,6 +27,14 @@ local plugins = {
     end,
   },
 
+  ["nvim-lualine/lualine.nvim"] = {
+    opt = true,
+    after = "nvim-web-devicons",
+    config = function()
+      require "plugins.configs.lualine"
+    end,
+  },
+
   ["lukas-reineke/indent-blankline.nvim"] = {
     opt = true,
     setup = function()
@@ -116,6 +124,7 @@ local plugins = {
   ["hrsh7th/cmp-nvim-lsp"] = { after = "cmp-nvim-lua" },
   ["hrsh7th/cmp-buffer"] = { after = "cmp-nvim-lsp" },
   ["hrsh7th/cmp-path"] = { after = "cmp-buffer" },
+  ["hrsh7th/cmp-nvim-lsp-signature-help"] = {},
 
   -- misc plugins
   ["windwp/nvim-autopairs"] = {
