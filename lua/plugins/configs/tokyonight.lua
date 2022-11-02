@@ -10,6 +10,14 @@ tokyonight.setup {
     sidebars = "transparent",
     floats = "transparent",
   },
+  on_highlights = function(hl, c)
+    hl.CursorLineNr = {
+      fg = c.green1,
+    }
+    hl.LineNr = {
+      fg = c.green1,
+    }
+  end,
 }
 
 vim.cmd [[colorscheme tokyonight]]

@@ -14,6 +14,9 @@ opt.title = true
 opt.clipboard = "unnamedplus"
 opt.cursorline = true
 
+-- disable nvim intro
+opt.shortmess:append "sI"
+
 -- Indenting
 opt.expandtab = true
 opt.shiftwidth = 2
