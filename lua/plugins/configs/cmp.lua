@@ -4,8 +4,6 @@ if not present then
   return
 end
 
-require("base46").load_highlight "cmp"
-
 vim.o.completeopt = "menu,menuone,noselect"
 
 local function border(hl_name)
@@ -20,6 +18,47 @@ local function border(hl_name)
     { "│", hl_name },
   }
 end
+
+local icons = {
+  Namespace = "",
+  Text = " ",
+  Method = " ",
+  Function = " ",
+  Constructor = " ",
+  Field = "ﰠ ",
+  Variable = " ",
+  Class = "ﴯ ",
+  Interface = " ",
+  Module = " ",
+  Property = "ﰠ ",
+  Unit = "塞 ",
+  Value = " ",
+  Enum = " ",
+  Keyword = " ",
+  Snippet = " ",
+  Color = " ",
+  File = " ",
+  Reference = " ",
+  Folder = " ",
+  EnumMember = " ",
+  Constant = " ",
+  Struct = "פּ ",
+  Event = " ",
+  Operator = " ",
+  TypeParameter = " ",
+  Table = "",
+  Object = " ",
+  Tag = "",
+  Array = "[]",
+  Boolean = " ",
+  Number = " ",
+  Null = "ﳠ",
+  String = " ",
+  Calendar = "",
+  Watch = " ",
+  Package = "",
+  Copilot = " ",
+}
 
 local cmp_window = require "cmp.utils.window"
 
@@ -47,7 +86,6 @@ local options = {
   },
   formatting = {
     format = function(_, vim_item)
-      local icons = require("nvchad_ui.icons").lspkind
       vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
       return vim_item
     end,

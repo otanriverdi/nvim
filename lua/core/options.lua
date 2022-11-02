@@ -31,9 +31,6 @@ opt.number = true
 opt.numberwidth = 2
 opt.ruler = false
 
--- disable nvim intro
-opt.shortmess:append "sI"
-
 opt.signcolumn = "yes"
 opt.splitbelow = true
 opt.splitright = true

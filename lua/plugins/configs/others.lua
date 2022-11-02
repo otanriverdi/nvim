@@ -30,8 +30,6 @@ M.blankline = function()
     return
   end
 
-  require("base46").load_highlight "blankline"
-
   local options = {
     indentLine_enabled = 1,
     filetype_exclude = {
@@ -136,8 +134,6 @@ M.gitsigns = function()
     return
   end
 
-  require("base46").load_highlight "git"
-
   local options = {
     signs = {
       add = { hl = "DiffAdd", text = "│", numhl = "GitSignsAddNr" },
@@ -146,9 +142,9 @@ M.gitsigns = function()
       topdelete = { hl = "DiffDelete", text = "‾", numhl = "GitSignsDeleteNr" },
       changedelete = { hl = "DiffChangeDelete", text = "~", numhl = "GitSignsChangeNr" },
     },
-    on_attach = function (bufnr)
+    on_attach = function(bufnr)
       utils.load_mappings("gitsigns", { buffer = bufnr })
-    end
+    end,
   }
 
   options = load_override(options, "lewis6991/gitsigns.nvim")
@@ -159,9 +155,149 @@ M.devicons = function()
   local present, devicons = pcall(require, "nvim-web-devicons")
 
   if present then
-    require("base46").load_highlight "devicons"
+    local options = {
+      override = {
+        default_icon = {
+          icon = "",
+          name = "Default",
+        },
 
-    local options = { override = require("nvchad_ui.icons").devicons }
+        c = {
+          icon = "",
+          name = "c",
+        },
+
+        css = {
+          icon = "",
+          name = "css",
+        },
+
+        deb = {
+          icon = "",
+          name = "deb",
+        },
+
+        Dockerfile = {
+          icon = "",
+          name = "Dockerfile",
+        },
+
+        html = {
+          icon = "",
+          name = "html",
+        },
+
+        jpeg = {
+          icon = "",
+          name = "jpeg",
+        },
+
+        jpg = {
+          icon = "",
+          name = "jpg",
+        },
+
+        js = {
+          icon = "",
+          name = "js",
+        },
+
+        kt = {
+          icon = "󱈙",
+          name = "kt",
+        },
+
+        lock = {
+          icon = "",
+          name = "lock",
+        },
+
+        lua = {
+          icon = "",
+          name = "lua",
+        },
+
+        mp3 = {
+          icon = "",
+          name = "mp3",
+        },
+
+        mp4 = {
+          icon = "",
+          name = "mp4",
+        },
+
+        out = {
+          icon = "",
+          name = "out",
+        },
+
+        png = {
+          icon = "",
+          name = "png",
+        },
+
+        py = {
+          icon = "",
+          name = "py",
+        },
+
+        ["robots.txt"] = {
+          icon = "ﮧ",
+          name = "robots",
+        },
+
+        toml = {
+          icon = "",
+          name = "toml",
+        },
+
+        ts = {
+          icon = "ﯤ",
+          name = "ts",
+        },
+
+        ttf = {
+          icon = "",
+          name = "TrueTypeFont",
+        },
+
+        rb = {
+          icon = "",
+          name = "rb",
+        },
+
+        rpm = {
+          icon = "",
+          name = "rpm",
+        },
+
+        vue = {
+          icon = "﵂",
+          name = "vue",
+        },
+
+        woff = {
+          icon = "",
+          name = "WebOpenFontFormat",
+        },
+
+        woff2 = {
+          icon = "",
+          name = "WebOpenFontFormat2",
+        },
+
+        xz = {
+          icon = "",
+          name = "xz",
+        },
+
+        zip = {
+          icon = "",
+          name = "zip",
+        },
+      },
+    }
     options = require("core.utils").load_override(options, "kyazdani42/nvim-web-devicons")
 
     devicons.setup(options)

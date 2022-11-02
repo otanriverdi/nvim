@@ -13,39 +13,14 @@ local plugins = {
 
   ["NvChad/extensions"] = { module = { "telescope", "nvchad" } },
 
-  ["NvChad/base46"] = {
+  -- colorscheme
+  ["folke/tokyonight.nvim"] = {
     config = function()
-      local ok, base46 = pcall(require, "base46")
-
-      if ok then
-        base46.load_theme()
-      end
-    end,
-  },
-
-  ["NvChad/ui"] = {
-    after = "base46",
-    config = function()
-      local present, nvchad_ui = pcall(require, "nvchad_ui")
-
-      if present then
-        nvchad_ui.setup()
-      end
-    end,
-  },
-
-  ["NvChad/nvterm"] = {
-    module = "nvterm",
-    config = function()
-      require "plugins.configs.nvterm"
-    end,
-    setup = function()
-      require("core.utils").load_mappings "nvterm"
+      require "plugins.configs.tokyonight"
     end,
   },
 
   ["kyazdani42/nvim-web-devicons"] = {
-    after = "ui",
     module = "nvim-web-devicons",
     config = function()
       require("plugins.configs.others").devicons()
@@ -150,14 +125,6 @@ local plugins = {
     end,
   },
 
-  ["goolord/alpha-nvim"] = {
-    after = "base46",
-    disable = true,
-    config = function()
-      require "plugins.configs.alpha"
-    end,
-  },
-
   ["numToStr/Comment.nvim"] = {
     module = "Comment",
     keys = { "gc", "gb" },
@@ -188,19 +155,6 @@ local plugins = {
     end,
     setup = function()
       require("core.utils").load_mappings "telescope"
-    end,
-  },
-
-  -- Only load whichkey after all the gui
-  ["folke/which-key.nvim"] = {
-    disable = true,
-    module = "which-key",
-    keys = { "<leader>", '"', "'", "`" },
-    config = function()
-      require "plugins.configs.whichkey"
-    end,
-    setup = function()
-      require("core.utils").load_mappings "whichkey"
     end,
   },
 }
