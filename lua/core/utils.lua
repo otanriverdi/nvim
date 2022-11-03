@@ -120,32 +120,6 @@ M.merge_plugins = function(plugins)
   return final_table
 end
 
--- override plugin options table with custom ones
-M.load_override = function(options_table, name)
-  local plugin_configs, plugin_options = M.load_config().plugins, nil
-
-  -- support old plugin syntax for override
-  local user_override = plugin_configs.override and plugin_configs.override[name]
-  if user_override and type(user_override) == "table" then
-    plugin_options = user_override
-  end
-
-  -- if no old style plugin override is found, then use the new syntax
-  if not plugin_options and plugin_configs[name] then
-    local override_options = plugin_configs[name].override_options or {}
-    if type(override_options) == "table" then
-      plugin_options = override_options
-    elseif type(override_options) == "function" then
-      plugin_options = override_options()
-    end
-  end
-
-  -- make sure the plugin options are a table
-  plugin_options = type(plugin_options) == "table" and plugin_options or {}
-
-  return merge_tb("force", options_table, plugin_options)
-end
-
 M.packer_sync = function(...)
   local git_exists, git = pcall(require, "nvchad.utils.git")
   local defaults_exists, defaults = pcall(require, "nvchad.utils.config")
