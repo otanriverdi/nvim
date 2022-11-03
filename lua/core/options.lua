@@ -1,11 +1,5 @@
 local opt = vim.opt
 local g = vim.g
-local config = require("core.utils").load_config()
-
-g.nvchad_theme = config.ui.theme
-g.toggle_theme_icon = "   "
-g.transparency = config.ui.transparency
-g.theme_switcher_loaded = false
 
 opt.laststatus = 3 -- global statusline
 opt.showmode = false
@@ -47,8 +41,8 @@ opt.updatetime = 250
 -- when cursor reaches end/beginning of line
 opt.whichwrap:append "<>[]hl"
 
-vim.opt.cmdheight = 1
-vim.opt.relativenumber = true
+opt.cmdheight = 1
+opt.relativenumber = true
 
 g.mapleader = " "
 
