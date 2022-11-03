@@ -12,10 +12,10 @@ tokyonight.setup {
   },
   on_highlights = function(hl, c)
     hl.CursorLineNr = {
-      fg = c.green1,
+      fg = c.blue,
     }
     hl.LineNr = {
-      fg = c.green1,
+      fg = c.blue,
     }
   end,
 }
