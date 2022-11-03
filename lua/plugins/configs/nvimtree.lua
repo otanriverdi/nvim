@@ -22,12 +22,12 @@ local options = {
   },
   view = {
     adaptive_size = true,
-    side = "left",
+    side = "right",
     width = 25,
     hide_root_folder = true,
   },
   git = {
-    enable = false,
+    enable = true,
     ignore = true,
   },
   filesystem_watchers = {
@@ -39,7 +39,7 @@ local options = {
     },
   },
   renderer = {
-    highlight_git = false,
+    highlight_git = true,
     highlight_opened_files = "none",
 
     indent_markers = {
@@ -51,7 +51,7 @@ local options = {
         file = true,
         folder = true,
         folder_arrow = true,
-        git = false,
+        git = true,
       },
 
       glyphs = {
@@ -77,6 +77,17 @@ local options = {
           ignored = "◌",
         },
       },
+    },
+  },
+  diagnostics = {
+    enable = true,
+    show_on_dirs = true,
+
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
     },
   },
 }
