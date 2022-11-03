@@ -107,4 +107,13 @@ lspconfig.sumneko_lua.setup {
   },
 }
 
+local servers = { "html", "cssls", "tsserver", "gopls", "rust_analyzer", "sumneko_lua" }
+
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    on_attach = M.on_attach,
+    capabilities = M.capabilities,
+  }
+end
+
 return M

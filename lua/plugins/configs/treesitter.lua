@@ -5,10 +5,6 @@ if not present then
 end
 
 local options = {
-  ensure_installed = {
-    "lua",
-  },
-
   highlight = {
     enable = true,
     use_languagetree = true,
@@ -17,9 +13,25 @@ local options = {
   indent = {
     enable = true,
   },
-}
 
--- check for any override
-options = require("core.utils").load_override(options, "nvim-treesitter/nvim-treesitter")
+  ensure_installed = {
+    "vim",
+    "lua",
+    "html",
+    "css",
+    "scss",
+    "sql",
+    "javascript",
+    "json",
+    "typescript",
+    "tsx",
+    "go",
+    "rust",
+  },
+
+  autotag = {
+    enable = true,
+  },
+}
 
 treesitter.setup(options)

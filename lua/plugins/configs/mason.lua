@@ -5,7 +5,17 @@ if not present then
 end
 
 local options = {
-  ensure_installed = { "lua-language-server" }, -- not an option from mason.nvim
+  ensure_installed = {
+    "lua-language-server",
+    "stylua",
+    "css-lsp",
+    "html-lsp",
+    "typescript-language-server",
+    "gopls",
+    "rust-analyzer",
+    "eslint_d",
+    "prettierd",
+  }, -- not an option from mason.nvim
 
   PATH = "skip",
 
@@ -30,8 +40,6 @@ local options = {
 
   max_concurrent_installers = 10,
 }
-
-options = require("core.utils").load_override(options, "williamboman/mason.nvim")
 
 vim.api.nvim_create_user_command("MasonInstallAll", function()
   vim.cmd("MasonInstall " .. table.concat(options.ensure_installed, " "))
