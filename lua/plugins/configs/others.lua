@@ -1,6 +1,5 @@
 local M = {}
 
-local load_override = require("core.utils").load_override
 local utils = require "core.utils"
 
 M.autopairs = function()
@@ -16,7 +15,6 @@ M.autopairs = function()
     disable_filetype = { "TelescopePrompt", "vim" },
   }
 
-  options = load_override(options, "windwp/nvim-autopairs")
   autopairs.setup(options)
 
   local cmp_autopairs = require "nvim-autopairs.completion.cmp"
@@ -50,7 +48,6 @@ M.blankline = function()
     show_current_context_start = true,
   }
 
-  options = load_override(options, "lukas-reineke/indent-blankline.nvim")
   blankline.setup(options)
 end
 
@@ -78,7 +75,6 @@ M.colorizer = function()
     },
   }
 
-  options = load_override(options, "NvChad/nvim-colorizer.lua")
   colorizer.setup(options)
   -- execute colorizer as soon as possible
   vim.defer_fn(function()
@@ -94,7 +90,6 @@ M.comment = function()
   end
 
   local options = {}
-  options = load_override(options, "numToStr/Comment.nvim")
   nvim_comment.setup(options)
 end
 
@@ -110,7 +105,6 @@ M.luasnip = function()
     updateevents = "TextChanged,TextChangedI",
   }
 
-  options = load_override(options, "L3MON4D3/LuaSnip")
   luasnip.config.set_config(options)
   require("luasnip.loaders.from_vscode").lazy_load { paths = vim.g.luasnippets_path or "" }
   require("luasnip.loaders.from_vscode").lazy_load()
@@ -147,7 +141,6 @@ M.gitsigns = function()
     end,
   }
 
-  options = load_override(options, "lewis6991/gitsigns.nvim")
   gitsigns.setup(options)
 end
 
@@ -298,7 +291,6 @@ M.devicons = function()
         },
       },
     }
-    options = require("core.utils").load_override(options, "kyazdani42/nvim-web-devicons")
 
     devicons.setup(options)
   end

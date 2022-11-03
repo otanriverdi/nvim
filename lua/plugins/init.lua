@@ -97,6 +97,14 @@ local plugins = {
     end,
   },
 
+  -- code formatting, linting etc
+  ["jose-elias-alvarez/null-ls.nvim"] = {
+    after = "nvim-lspconfig",
+    config = function()
+      require "plugins.configs.null-ls"
+    end,
+  },
+
   -- load luasnips + cmp related in insert mode only
 
   ["rafamadriz/friendly-snippets"] = {
@@ -166,6 +174,15 @@ local plugins = {
       require("core.utils").load_mappings "telescope"
     end,
   },
+
+  -- stick current context header on top
+  ["nvim-treesitter/nvim-treesitter-context"] = {},
+
+  -- add html auto close tags
+  ["windwp/nvim-ts-autotag"] = {},
+
+  -- mark and navigate files quickly
+  ["ThePrimeagen/harpoon"] = {},
 }
 
 -- Load all plugins
@@ -179,7 +196,6 @@ if present then
 
   -- load packer init options
   local init_options = require("plugins.configs.others").packer_init()
-  init_options = require("core.utils").load_override(init_options, "wbthomason/packer.nvim")
 
   packer.init(init_options)
   packer.startup { plugins }
