@@ -21,6 +21,35 @@ M.autopairs = function()
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 end
 
+M.guessindent = function()
+  local present, guessindent = pcall(require, "guess-indent")
+
+  if not present then
+    return
+  end
+
+  local options = {
+    filetype_exclude = { -- A list of filetypes for which the auto command gets disabled
+      "netrw",
+      "tutor",
+      "alpha",
+      "packer",
+      "lspinfo",
+      "TelescopePrompt",
+      "TelescopeResults",
+      "mason",
+    },
+    buftype_exclude = { -- A list of buffer types for which the auto command gets disabled
+      "help",
+      "nofile",
+      "terminal",
+      "prompt",
+    },
+  }
+
+  guessindent.setup(options)
+end
+
 M.blankline = function()
   local present, blankline = pcall(require, "indent_blankline")
 

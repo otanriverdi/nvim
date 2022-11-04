@@ -183,6 +183,13 @@ local plugins = {
 
   -- mark and navigate files quickly
   ["ThePrimeagen/harpoon"] = {},
+
+  -- detect indent size from a buffer
+  ["nmac427/guess-indent.nvim"] = {
+    config = function()
+      require("plugins.configs.others").guessindent()
+    end,
+  },
 }
 
 -- Load all plugins
