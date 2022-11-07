@@ -28,8 +28,6 @@ local plugins = {
   },
 
   ["nvim-lualine/lualine.nvim"] = {
-    opt = true,
-    after = "nvim-web-devicons",
     config = function()
       require "plugins.configs.lualine"
     end,
