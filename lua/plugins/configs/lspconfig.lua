@@ -26,6 +26,7 @@ vim.diagnostic.config {
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "single",
 })
+
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
   border = "single",
   focusable = false,
@@ -86,6 +87,17 @@ M.capabilities.textDocument.completion.completionItem = {
   },
 }
 
+-- Add the server here if you dont want to override settings
+-- otherwise you need to manually setup
+local servers = { "html", "cssls", "gopls", "rust_analyzer" }
+
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    on_attach = M.on_attach,
+    capabilities = M.capabilities,
+  }
+end
+
 lspconfig.sumneko_lua.setup {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
@@ -107,13 +119,11 @@ lspconfig.sumneko_lua.setup {
   },
 }
 
-local servers = { "html", "cssls", "tsserver", "gopls", "rust_analyzer", "sumneko_lua" }
+lspconfig.tsserver.setup {
+  on_attach = M.on_attach,
+  capabilities = M.capabilities,
 
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = M.on_attach,
-    capabilities = M.capabilities,
-  }
-end
+  root_dir = require("lspconfig.util").root_pattern ".git",
+}
 
 return M
