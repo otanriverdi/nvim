@@ -60,6 +60,11 @@ M.general = {
     ["<leader>2"] = { ":lua require('harpoon.ui').nav_file(2)<CR>", "jump to harpoon file 2" },
     ["<leader>3"] = { ":lua require('harpoon.ui').nav_file(3)<CR>", "jump to harpoon file 3" },
     ["<leader>4"] = { ":lua require('harpoon.ui').nav_file(4)<CR>", "jump to harpoon file 4" },
+    ["<leader>5"] = { ":lua require('harpoon.ui').nav_file(5)<CR>", "jump to harpoon file 5" },
+    ["<leader>6"] = { ":lua require('harpoon.ui').nav_file(6)<CR>", "jump to harpoon file 6" },
+    ["<leader>7"] = { ":lua require('harpoon.ui').nav_file(7)<CR>", "jump to harpoon file 7" },
+    ["<leader>8"] = { ":lua require('harpoon.ui').nav_file(8)<CR>", "jump to harpoon file 8" },
+    ["<leader>9"] = { ":lua require('harpoon.ui').nav_file(9)<CR>", "jump to harpoon file 9" },
   },
 
   v = {
