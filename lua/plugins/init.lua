@@ -11,8 +11,6 @@ local plugins = {
     end,
   },
 
-  ["NvChad/extensions"] = { module = { "telescope", "nvchad" } },
-
   -- colorscheme
   ["folke/tokyonight.nvim"] = {
     config = function()
