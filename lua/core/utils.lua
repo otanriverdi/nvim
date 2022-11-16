@@ -2,56 +2,12 @@ local M = {}
 local merge_tb = vim.tbl_deep_extend
 
 M.load_config = function()
-  local config = require "core.default_config"
-  local chadrc_exists, chadrc = pcall(require, "custom.chadrc")
+  local T = {}
 
-  if chadrc_exists then
-    -- merge user config if it exists and is a table; otherwise display an error
-    if type(chadrc) == "table" then
-      config.mappings = M.remove_disabled_keys(chadrc.mappings, config.mappings)
-      config = merge_tb("force", config, chadrc) or {}
-    else
-      error "chadrc must return a table!"
-    end
-  end
+  -- check core.mappings for table structure
+  T.mappings = require "core.mappings"
 
-  config.mappings.disabled = nil
-  return config
-end
-
-M.remove_disabled_keys = function(chadrc_mappings, default_mappings)
-  if not chadrc_mappings then
-    return default_mappings
-  end
-
-  -- store keys in a array with true value to compare
-  local keys_to_disable = {}
-  for _, mappings in pairs(chadrc_mappings) do
-    for mode, section_keys in pairs(mappings) do
-      if not keys_to_disable[mode] then
-        keys_to_disable[mode] = {}
-      end
-      section_keys = (type(section_keys) == "table" and section_keys) or {}
-      for k, _ in pairs(section_keys) do
-        keys_to_disable[mode][k] = true
-      end
-    end
-  end
-
-  -- make a copy as we need to modify default_mappings
-  for section_name, section_mappings in pairs(default_mappings) do
-    for mode, mode_mappings in pairs(section_mappings) do
-      mode_mappings = (type(mode_mappings) == "table" and mode_mappings) or {}
-      for k, _ in pairs(mode_mappings) do
-        -- if key if found then remove from default_mappings
-        if keys_to_disable[mode] and keys_to_disable[mode][k] then
-          default_mappings[section_name][mode][k] = nil
-        end
-      end
-    end
-  end
-
-  return default_mappings
+  return T
 end
 
 M.load_mappings = function(section, mapping_opt)
@@ -89,14 +45,10 @@ end
 
 -- merge default/user plugin tables
 M.merge_plugins = function(plugins)
-  local user_plugins = M.load_config().plugins
-  plugins = merge_tb("force", plugins, M.load_config().plugins)
-
   local final_table = {}
 
   for key, val in pairs(plugins) do
     if val then
-      plugins[key] = (val.rm_default_opts and user_plugins[key]) or plugins[key]
       plugins[key][1] = key
       final_table[#final_table + 1] = plugins[key]
     end
