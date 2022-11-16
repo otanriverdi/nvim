@@ -89,29 +89,14 @@ end
 
 -- merge default/user plugin tables
 M.merge_plugins = function(plugins)
-  local plugin_configs = M.load_config().plugins
-  local user_plugins = plugin_configs
-
-  -- old plugin syntax for adding plugins
-  if plugin_configs.user and type(plugin_configs.user) == "table" then
-    user_plugins = plugin_configs.user
-  end
-
-  -- support old plugin removal syntax
-  local remove_plugins = plugin_configs.remove
-  if type(remove_plugins) == "table" then
-    for _, v in ipairs(remove_plugins) do
-      plugins[v] = nil
-    end
-  end
-
-  plugins = merge_tb("force", plugins, user_plugins)
+  local user_plugins = M.load_config().plugins
+  plugins = merge_tb("force", plugins, M.load_config().plugins)
 
   local final_table = {}
 
   for key, val in pairs(plugins) do
-    if val and type(val) == "table" then
-      plugins[key] = val.rm_default_opts and user_plugins[key] or plugins[key]
+    if val then
+      plugins[key] = (val.rm_default_opts and user_plugins[key]) or plugins[key]
       plugins[key][1] = key
       final_table[#final_table + 1] = plugins[key]
     end
@@ -152,12 +137,6 @@ M.packer_sync = function(...)
 
   if packer_exists then
     packer.sync(...)
-
-    local plugins = M.load_config().plugins
-    local old_style_options = plugins.user or plugins.override or plugins.remove
-    if old_style_options then
-      vim.notify_once("NvChad: This plugin syntax is deprecated, use new style config.", "Error")
-    end
   else
     error "Packer could not be loaded!"
   end
