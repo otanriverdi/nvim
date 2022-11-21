@@ -12,6 +12,9 @@ local sources = {
   b.diagnostics.eslint_d,
   b.code_actions.eslint_d,
 
+  -- Deno
+  b.formatting.deno_fmt,
+
   -- Lua
   b.formatting.stylua,
 
@@ -25,7 +28,7 @@ local sources = {
 
 null_ls.setup {
   sources = sources,
-  root_dir = require("null-ls.utils").root_pattern(".git", "package.json"),
+  root_dir = require("null-ls.utils").root_pattern ".git",
 
   on_attach = function(client)
     if client.server_capabilities.documentFormattingProvider then
