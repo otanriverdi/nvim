@@ -25,10 +25,12 @@ local options = {
     side = "right",
     width = 25,
     hide_root_folder = true,
+    number = true,
+    relativenumber = true,
   },
   git = {
     enable = true,
-    ignore = true,
+    ignore = false,
   },
   filesystem_watchers = {
     enable = true,
@@ -60,10 +62,10 @@ local options = {
         folder = {
           default = "",
           empty = "",
-          empty_open = "",
-          open = "",
+          empty_open = "",
+          open = "",
           symlink = "",
-          symlink_open = "",
+          symlink_open = "",
           arrow_open = "",
           arrow_closed = "",
         },

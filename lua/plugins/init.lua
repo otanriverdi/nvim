@@ -192,8 +192,6 @@ local plugins = {
 local present, packer = pcall(require, "packer")
 
 if present then
-  vim.cmd "packadd packer.nvim"
-
   -- This function enables the custom syntax above
   plugins = require("core.utils").merge_plugins(plugins)
 

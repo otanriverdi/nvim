@@ -4,8 +4,6 @@ if not present then
   return
 end
 
-vim.g.theme_switcher_loaded = true
-
 local options = {
   defaults = {
     vimgrep_arguments = {
@@ -13,6 +11,7 @@ local options = {
       "-L",
       "--color=never",
       "--no-heading",
+      "--no-ignore-vcs",
       "--with-filename",
       "--line-number",
       "--column",
@@ -57,7 +56,7 @@ local options = {
     },
   },
 
-  extensions_list = { "themes", "terms" },
+  extensions_list = {},
 }
 
 telescope.setup(options)
