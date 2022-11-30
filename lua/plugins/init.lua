@@ -230,5 +230,8 @@ if present then
         require("plugins.configs.others").guessindent()
       end,
     }
+
+    -- Git diff and merge tool
+    use { "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" }
   end)
 end
