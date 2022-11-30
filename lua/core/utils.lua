@@ -43,20 +43,6 @@ M.load_mappings = function(section, mapping_opt)
   end
 end
 
--- merge default/user plugin tables
-M.merge_plugins = function(plugins)
-  local final_table = {}
-
-  for key, val in pairs(plugins) do
-    if val then
-      plugins[key][1] = key
-      final_table[#final_table + 1] = plugins[key]
-    end
-  end
-
-  return final_table
-end
-
 M.packer_sync = function(...)
   local packer_exists, packer = pcall(require, "packer")
 

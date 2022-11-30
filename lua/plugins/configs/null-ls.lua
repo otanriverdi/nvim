@@ -12,9 +12,6 @@ local sources = {
   b.diagnostics.eslint_d,
   b.code_actions.eslint_d,
 
-  -- Deno
-  b.formatting.deno_fmt,
-
   -- Lua
   b.formatting.stylua,
 
