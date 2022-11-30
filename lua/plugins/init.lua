@@ -232,6 +232,12 @@ if present then
     }
 
     -- Git diff and merge tool
-    use { "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" }
+    use {
+      "sindrets/diffview.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      config = function()
+        require("plugins.configs.others").diffview()
+      end,
+    }
   end)
 end

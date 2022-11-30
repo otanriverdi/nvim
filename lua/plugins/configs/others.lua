@@ -21,6 +21,25 @@ M.autopairs = function()
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 end
 
+M.diffview = function()
+  local present, diffview = pcall(require, "diffview")
+
+  if not present then
+    return
+  end
+
+  local options = {
+    file_panel = {
+      win_config = {
+        position = "right",
+        width = 35,
+      },
+    },
+  }
+
+  diffview.setup(options)
+end
+
 M.guessindent = function()
   local present, guessindent = pcall(require, "guess-indent")
 
