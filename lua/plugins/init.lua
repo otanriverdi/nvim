@@ -215,7 +215,12 @@ if present then
     }
 
     -- Auto close JSX tags
-    use "windwp/nvim-ts-autotag"
+    use {
+      "windwp/nvim-ts-autotag",
+      setup = function()
+        require("core.lazy_load").on_file_open "nvim-ts-autotag"
+      end,
+    }
 
     -- Add and travel to file marks
     use "ThePrimeagen/harpoon"
@@ -240,6 +245,7 @@ if present then
       end,
     }
 
+    -- Startup screen
     use {
       "goolord/alpha-nvim",
       requires = { "nvim-tree/nvim-web-devicons" },
