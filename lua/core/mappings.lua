@@ -48,6 +48,7 @@ M.general = {
     ["<leader>h"] = { "<cmd> noh <CR>", "no highlight" },
     ["<leader>fs"] = { "<cmd> Telescope lsp_document_symbols <CR>", "find document symbols" },
     ["<leader>fS"] = { "<cmd> Telescope lsp_workspace_symbols <CR>", "find workspace symbols" },
+
     ["<leader>ma"] = { ":lua require('harpoon.mark').add_file()<CR>", "add file to harpoon" },
     ["<leader>mr"] = { ":lua require('harpoon.mark').rm_file()<CR>", "add file to harpoon" },
     ["<leader>mf"] = { ":lua require('harpoon.ui').toggle_quick_menu()<CR>", "toggle harpoon menu" },
@@ -62,6 +63,8 @@ M.general = {
     ["<leader>7"] = { ":lua require('harpoon.ui').nav_file(7)<CR>", "jump to harpoon file 7" },
     ["<leader>8"] = { ":lua require('harpoon.ui').nav_file(8)<CR>", "jump to harpoon file 8" },
     ["<leader>9"] = { ":lua require('harpoon.ui').nav_file(9)<CR>", "jump to harpoon file 9" },
+
+    ["<leader>gd"] = { "<cmd> DiffviewOpen <CR>", "open diffview" },
   },
 
   v = {

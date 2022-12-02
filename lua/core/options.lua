@@ -43,6 +43,10 @@ opt.whichwrap:append "<>[]hl"
 opt.cmdheight = 1
 opt.relativenumber = true
 
+-- yeah...
+opt.backup = false
+opt.swapfile = false
+
 g.mapleader = " "
 
 -- disable some builtin vim plugins
