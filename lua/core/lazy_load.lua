@@ -60,6 +60,8 @@ M.packer_cmds = {
 
 M.treesitter_cmds = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSEnable", "TSDisable", "TSModuleInfo" }
 M.mason_cmds = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" }
+M.dap_cmds = { "DapToggleBreakpoint", "DapContinue", "DapUIOpen" }
+M.diffview_cmds = { "DiffviewOpen", "DiffviewFileHistory" }
 
 M.gitsigns = function()
   autocmd({ "BufRead" }, {

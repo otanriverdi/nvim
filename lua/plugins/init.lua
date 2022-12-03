@@ -242,6 +242,7 @@ if present then
     use {
       "sindrets/diffview.nvim",
       requires = "nvim-lua/plenary.nvim",
+      cmd = require("core.lazy_load").diffview_cmds,
       config = function()
         require("plugins.configs.others").diffview()
       end,
@@ -259,10 +260,7 @@ if present then
     -- DAP setup
     use {
       "mfussenegger/nvim-dap",
-      opt = true,
-      setup = function()
-        require("core.lazy_load").on_file_open "nvim-dap"
-      end,
+      cmd = require("core.lazy_load").dap_cmds,
       config = function()
         require("plugins.configs.dap").dap()
       end,
