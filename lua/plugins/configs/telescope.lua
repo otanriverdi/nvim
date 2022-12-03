@@ -56,7 +56,7 @@ local options = {
     },
   },
 
-  extensions_list = {},
+  extensions_list = { "dap" },
 }
 
 telescope.setup(options)

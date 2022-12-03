@@ -217,6 +217,7 @@ if present then
     -- Auto close JSX tags
     use {
       "windwp/nvim-ts-autotag",
+      opt = true,
       setup = function()
         require("core.lazy_load").on_file_open "nvim-ts-autotag"
       end,
@@ -228,6 +229,7 @@ if present then
     -- Detect and set indentation
     use {
       "nmac427/guess-indent.nvim",
+      opt = true,
       setup = function()
         require("core.lazy_load").on_file_open "guess-indent.nvim"
       end,
@@ -245,12 +247,45 @@ if present then
       end,
     }
 
-    -- Startup screen
+    -- Welcome screen
     use {
       "goolord/alpha-nvim",
       requires = { "nvim-tree/nvim-web-devicons" },
       config = function()
         require("alpha").setup(require("alpha.themes.startify").config)
+      end,
+    }
+
+    -- DAP setup
+    use {
+      "mfussenegger/nvim-dap",
+      opt = true,
+      setup = function()
+        require("core.lazy_load").on_file_open "nvim-dap"
+      end,
+      config = function()
+        require("plugins.configs.dap").dap()
+      end,
+    }
+
+    -- Telescope helpers for DAP commands
+    use { "nvim-telescope/telescope-dap.nvim", after = { "nvim-dap", "telescope.nvim" } }
+
+    -- Virtual text for dap
+    use {
+      "theHamsta/nvim-dap-virtual-text",
+      after = "nvim-dap",
+      config = function()
+        require("plugins.configs.dap").dap_virtual_text()
+      end,
+    }
+
+    -- A better UI for DAP
+    use {
+      "rcarriga/nvim-dap-ui",
+      after = "nvim-dap",
+      config = function()
+        require("plugins.configs.dap").dapui()
       end,
     }
   end)
