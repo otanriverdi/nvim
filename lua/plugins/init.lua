@@ -272,6 +272,9 @@ if present then
       config = function()
         require("plugins.configs.dap").dap()
       end,
+      setup = function()
+        require("core.utils").load_mappings "dap"
+      end,
     }
 
     -- Telescope helpers for DAP commands

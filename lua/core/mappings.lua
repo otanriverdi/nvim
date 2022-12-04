@@ -64,6 +64,18 @@ M.general = {
   },
 }
 
+M.dap = {
+  plugin = true,
+
+  n = {
+    ["<leader>dc"] = { "<cmd>DapContinue<CR>", "dap continue" },
+    ["<leader>do"] = { "<cmd>lua require('dap').step_over()<CR>", "dap step over" },
+    ["<leader>di"] = { "<cmd>lua require('dap').step_into()<CR>", "dap step into" },
+    ["<leader>de"] = { "<cmd>lua require('dap').step_out()<CR>", "dap step out" },
+    ["<leader>db"] = { "<cmd>DapToggleBreakpoint<CR>", "dap toggle breakpoint" },
+  },
+}
+
 M.diffview = {
   plugin = true,
 
