@@ -224,7 +224,12 @@ if present then
     }
 
     -- Add and travel to file marks
-    use "ThePrimeagen/harpoon"
+    use {
+      "ThePrimeagen/harpoon",
+      setup = function()
+        require("core.utils").load_mappings "harpoon"
+      end,
+    }
 
     -- Detect and set indentation
     use {
@@ -245,6 +250,9 @@ if present then
       cmd = require("core.lazy_load").diffview_cmds,
       config = function()
         require("plugins.configs.others").diffview()
+      end,
+      setup = function()
+        require("core.utils").load_mappings "diffview"
       end,
     }
 

@@ -33,7 +33,6 @@ M.general = {
     ["<C-c>"] = { "<cmd> %y+ <CR>", "copy whole file" },
 
     -- line numbers
-    ["<leader>n"] = { "<cmd> set nu! <CR>", "toggle line number" },
     ["<leader>rn"] = { "<cmd> set rnu! <CR>", "toggle relative number" },
 
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
@@ -49,9 +48,34 @@ M.general = {
     ["<leader>b"] = { "<cmd> enew <CR>", "new buffer" },
 
     ["<leader>h"] = { "<cmd> noh <CR>", "no highlight" },
-    ["<leader>fs"] = { "<cmd> Telescope lsp_document_symbols <CR>", "find document symbols" },
-    ["<leader>fS"] = { "<cmd> Telescope lsp_workspace_symbols <CR>", "find workspace symbols" },
+  },
 
+  v = {
+    ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', opts = { expr = true } },
+    ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', opts = { expr = true } },
+  },
+
+  x = {
+    ["j"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', opts = { expr = true } },
+    ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', opts = { expr = true } },
+    -- Don't copy the replaced text after pasting in visual mode
+    -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
+    ["p"] = { 'p:let @+=@0<CR>:let @"=@0<CR>', opts = { silent = true } },
+  },
+}
+
+M.diffview = {
+  plugin = true,
+
+  n = {
+    ["<leader>gd"] = { "<cmd> DiffviewOpen <CR>", "open diffview" },
+  },
+}
+
+M.harpoon = {
+  plugin = true,
+
+  n = {
     ["<leader>ma"] = { ":lua require('harpoon.mark').add_file()<CR>", "add file to harpoon" },
     ["<leader>mr"] = { ":lua require('harpoon.mark').rm_file()<CR>", "add file to harpoon" },
     ["<leader>mf"] = { ":lua require('harpoon.ui').toggle_quick_menu()<CR>", "toggle harpoon menu" },
@@ -66,21 +90,6 @@ M.general = {
     ["<leader>7"] = { ":lua require('harpoon.ui').nav_file(7)<CR>", "jump to harpoon file 7" },
     ["<leader>8"] = { ":lua require('harpoon.ui').nav_file(8)<CR>", "jump to harpoon file 8" },
     ["<leader>9"] = { ":lua require('harpoon.ui').nav_file(9)<CR>", "jump to harpoon file 9" },
-
-    ["<leader>gd"] = { "<cmd> DiffviewOpen <CR>", "open diffview" },
-  },
-
-  v = {
-    ["<Up>"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', opts = { expr = true } },
-    ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', opts = { expr = true } },
-  },
-
-  x = {
-    ["j"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', opts = { expr = true } },
-    ["k"] = { 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', opts = { expr = true } },
-    -- Don't copy the replaced text after pasting in visual mode
-    -- https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text#Alternative_mapping_for_paste
-    ["p"] = { 'p:let @+=@0<CR>:let @"=@0<CR>', opts = { silent = true } },
   },
 }
 
@@ -256,6 +265,10 @@ M.telescope = {
     -- git
     ["<leader>cm"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
     ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "git status" },
+
+    -- symbols
+    ["<leader>fs"] = { "<cmd> Telescope lsp_document_symbols <CR>", "find document symbols" },
+    ["<leader>fS"] = { "<cmd> Telescope lsp_workspace_symbols <CR>", "find workspace symbols" },
   },
 }
 

@@ -1,15 +1,6 @@
 local M = {}
 local merge_tb = vim.tbl_deep_extend
 
-M.load_config = function()
-  local T = {}
-
-  -- check core.mappings for table structure
-  T.mappings = require "core.mappings"
-
-  return T
-end
-
 M.load_mappings = function(section, mapping_opt)
   local function set_section_map(section_values)
     if section_values.plugin then
@@ -31,7 +22,7 @@ M.load_mappings = function(section, mapping_opt)
     end
   end
 
-  local mappings = require("core.utils").load_config().mappings
+  local mappings = require "core.mappings"
 
   if type(section) == "string" then
     mappings[section]["plugin"] = nil
