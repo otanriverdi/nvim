@@ -21,6 +21,20 @@ M.autopairs = function()
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 end
 
+M.betterescape = function()
+  local present, betterescape = pcall(require, "better_escape")
+
+  if not present then
+    return
+  end
+
+  local options = {
+    mappint = { "jk" },
+  }
+
+  betterescape.setup(options)
+end
+
 M.diffview = function()
   local present, diffview = pcall(require, "diffview")
 

@@ -176,6 +176,14 @@ if present then
       end,
     }
 
+    -- Better escape with JK
+    use {
+      "max397574/better-escape.nvim",
+      config = function()
+        require("plugins.configs.others").betterescape()
+      end,
+    }
+
     -- Auto comment
     use {
       "numToStr/Comment.nvim",
