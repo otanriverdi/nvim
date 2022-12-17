@@ -47,6 +47,11 @@ opt.relativenumber = true
 opt.backup = false
 opt.swapfile = false
 
+opt.incsearch = true
+
+-- always have 8 lines visible when scrolling
+opt.scrolloff = 8
+
 g.mapleader = " "
 
 -- disable some builtin vim plugins
