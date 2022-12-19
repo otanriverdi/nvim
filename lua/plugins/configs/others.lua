@@ -2,6 +2,20 @@ local M = {}
 
 local utils = require "core.utils"
 
+M.fidget = function()
+  local present, fidget = pcall(require, "fidget")
+
+  if not present then
+    return
+  end
+
+  fidget.setup {
+    window = {
+      blend = 0,
+    },
+  }
+end
+
 M.autopairs = function()
   local present1, autopairs = pcall(require, "nvim-autopairs")
   local present2, cmp = pcall(require, "cmp")
@@ -33,25 +47,6 @@ M.betterescape = function()
   }
 
   betterescape.setup(options)
-end
-
-M.diffview = function()
-  local present, diffview = pcall(require, "diffview")
-
-  if not present then
-    return
-  end
-
-  local options = {
-    file_panel = {
-      win_config = {
-        position = "right",
-        width = 35,
-      },
-    },
-  }
-
-  diffview.setup(options)
 end
 
 M.guessindent = function()

@@ -98,12 +98,22 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+local runtime_path = vim.split(package.path, ";")
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
 lspconfig.sumneko_lua.setup {
   on_attach = M.on_attach,
   capabilities = M.capabilities,
 
   settings = {
     Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT)
+        version = "LuaJIT",
+        -- Setup your lua path
+        path = runtime_path,
+      },
       diagnostics = {
         globals = { "vim" },
       },
@@ -115,6 +125,7 @@ lspconfig.sumneko_lua.setup {
         maxPreload = 100000,
         preloadFileSize = 10000,
       },
+      telemetry = { enable = false },
     },
   },
 }

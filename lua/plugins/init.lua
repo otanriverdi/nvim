@@ -222,6 +222,8 @@ if present then
       end,
     }
 
+    use { "nvim-telescope/telescope-fzf-native.nvim", run = "make", cond = vim.fn.executable "make" == 1 }
+
     -- Auto close JSX tags
     use {
       "windwp/nvim-ts-autotag",
@@ -251,18 +253,8 @@ if present then
       end,
     }
 
-    -- Git diff and merge tool
-    use {
-      "sindrets/diffview.nvim",
-      requires = "nvim-lua/plenary.nvim",
-      cmd = require("core.lazy_load").diffview_cmds,
-      config = function()
-        require("plugins.configs.others").diffview()
-      end,
-      setup = function()
-        require("core.utils").load_mappings "diffview"
-      end,
-    }
+    -- Git wrapper
+    use { "tpope/vim-fugitive" }
 
     -- Welcome screen
     use {
@@ -303,6 +295,13 @@ if present then
       after = "nvim-dap",
       config = function()
         require("plugins.configs.dap").dapui()
+      end,
+    }
+
+    use {
+      "j-hui/fidget.nvim",
+      config = function()
+        require("plugins.configs.others").fidget()
       end,
     }
   end)
