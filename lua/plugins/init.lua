@@ -309,7 +309,9 @@ if present then
     -- Undotree displays the undo history as a branch ui
     use {
       "mbbill/undotree",
+      opt = true,
       setup = function()
+        require("core.lazy_load").on_file_open "undotree"
         require("core.utils").load_mappings "undotree"
       end,
     }
