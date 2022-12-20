@@ -298,10 +298,19 @@ if present then
       end,
     }
 
+    -- Shows LSP loading status
     use {
       "j-hui/fidget.nvim",
       config = function()
         require("plugins.configs.others").fidget()
+      end,
+    }
+
+    -- Undotree displays the undo history as a branch ui
+    use {
+      "mbbill/undotree",
+      setup = function()
+        require("core.utils").load_mappings "undotree"
       end,
     }
   end)

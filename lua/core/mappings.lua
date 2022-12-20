@@ -64,6 +64,14 @@ M.general = {
   },
 }
 
+M.undotree = {
+  plugin = true,
+
+  n = {
+    ["<leader>u"] = { "<cmd>UndotreeToggle<CR>", "Open undotree" },
+  },
+}
+
 M.dap = {
   plugin = true,
 
