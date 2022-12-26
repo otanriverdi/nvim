@@ -224,6 +224,8 @@ if present then
 
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make", cond = vim.fn.executable "make" == 1 }
 
+    use { "nvim-telescope/telescope-file-browser.nvim" }
+
     -- Auto close JSX tags
     use {
       "windwp/nvim-ts-autotag",
@@ -253,8 +255,17 @@ if present then
       end,
     }
 
-    -- Git wrapper
-    use { "tpope/vim-fugitive" }
+    -- Git diff view
+    use {
+      "sindrets/diffview.nvim",
+      requires = "nvim-lua/plenary.nvim",
+      config = function()
+        require("plugins.configs.others").diffview()
+      end,
+      setup = function()
+        require("core.utils").load_mappings "diffview"
+      end,
+    }
 
     -- Welcome screen
     use {

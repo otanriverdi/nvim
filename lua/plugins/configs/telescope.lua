@@ -56,7 +56,13 @@ local options = {
     },
   },
 
-  extensions_list = { "dap", "fzf" },
+  extensions = {
+    file_browser = {
+      files = false,
+    },
+  },
+
+  extensions_list = { "dap", "fzf", "file_browser" },
 }
 
 telescope.setup(options)

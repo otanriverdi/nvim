@@ -289,6 +289,8 @@ M.telescope = {
     -- symbols
     ["<leader>fs"] = { "<cmd> Telescope lsp_document_symbols <CR>", "find document symbols" },
     ["<leader>fS"] = { "<cmd> Telescope lsp_workspace_symbols <CR>", "find workspace symbols" },
+
+    ["<leader>fd"] = { "<cmd> Telescope file_browser<CR>", "find directories" },
   },
 }
 
