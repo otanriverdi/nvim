@@ -14,14 +14,14 @@ lspSymbol("Info", "")
 lspSymbol("Hint", "")
 lspSymbol("Warn", "")
 
-vim.diagnostic.config {
+vim.diagnostic.config({
   virtual_text = {
     prefix = "",
   },
   signs = true,
   underline = true,
   update_in_insert = false,
-}
+})
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "single",
@@ -35,7 +35,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 
 -- suppress error messages from lang servers
 vim.notify = function(msg, log_level)
-  if msg:match "exit code" then
+  if msg:match("exit code") then
     return
   end
   if log_level == vim.log.levels.ERROR then
@@ -46,7 +46,7 @@ vim.notify = function(msg, log_level)
 end
 
 -- Borders for LspInfo winodw
-local win = require "lspconfig.ui.windows"
+local win = require("lspconfig.ui.windows")
 local _default_opts = win.default_opts
 
 win.default_opts = function(options)
@@ -56,7 +56,7 @@ win.default_opts = function(options)
 end
 
 local M = {}
-local utils = require "core.utils"
+local utils = require("core.utils")
 
 -- export on_attach & capabilities for custom lspconfigs
 
@@ -92,17 +92,17 @@ M.capabilities.textDocument.completion.completionItem = {
 local servers = { "html", "cssls", "gopls", "rust_analyzer" }
 
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+  lspconfig[lsp].setup({
     on_attach = M.on_attach,
     capabilities = M.capabilities,
-  }
+  })
 end
 
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-lspconfig.sumneko_lua.setup {
+lspconfig.sumneko_lua.setup({
   on_attach = M.on_attach,
   capabilities = M.capabilities,
 
@@ -119,8 +119,8 @@ lspconfig.sumneko_lua.setup {
       },
       workspace = {
         library = {
-          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
         },
         maxPreload = 100000,
         preloadFileSize = 10000,
@@ -128,7 +128,7 @@ lspconfig.sumneko_lua.setup {
       telemetry = { enable = false },
     },
   },
-}
+})
 
 -- Some utils for tsserver
 local function filter(arr, fn)
@@ -150,7 +150,7 @@ local function filterReactDTS(value)
   return string.match(value.targetUri, "react/index.d.ts") == nil
 end
 
-lspconfig.tsserver.setup {
+lspconfig.tsserver.setup({
   -- other options
   handlers = {
     ["textDocument/definition"] = function(err, result, method, ...)
@@ -162,13 +162,13 @@ lspconfig.tsserver.setup {
       vim.lsp.handlers["textDocument/definition"](err, result, method, ...)
     end,
   },
-}
+})
 
-lspconfig.tsserver.setup {
+lspconfig.tsserver.setup({
   on_attach = M.on_attach,
   capabilities = M.capabilities,
 
-  root_dir = require("lspconfig.util").root_pattern ".git",
+  root_dir = require("lspconfig.util").root_pattern(".git"),
 
   handlers = {
     ["textDocument/definition"] = function(err, result, method, ...)
@@ -180,6 +180,6 @@ lspconfig.tsserver.setup {
       vim.lsp.handlers["textDocument/definition"](err, result, method, ...)
     end,
   },
-}
+})
 
 return M

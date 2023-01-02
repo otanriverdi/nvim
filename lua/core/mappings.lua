@@ -233,7 +233,7 @@ M.lspconfig = {
 
     ["<leader>fm"] = {
       function()
-        vim.lsp.buf.format { async = true }
+        vim.lsp.buf.format({ async = true })
       end,
       "lsp formatting",
     },
@@ -261,14 +261,6 @@ M.lspconfig = {
   },
 }
 
-M.nvimtree = {
-  plugin = true,
-
-  n = {
-    ["<leader>e"] = { "<cmd> NvimTreeToggle <CR>", "toggle nvimtree" },
-  },
-}
-
 M.telescope = {
   plugin = true,
 
@@ -290,7 +282,7 @@ M.telescope = {
     ["<leader>fs"] = { "<cmd> Telescope lsp_document_symbols <CR>", "find document symbols" },
     ["<leader>fS"] = { "<cmd> Telescope lsp_workspace_symbols <CR>", "find workspace symbols" },
 
-    ["<leader>fd"] = { "<cmd> Telescope file_browser<CR>", "find directories" },
+    ["<leader>e"] = { "<cmd> Telescope file_browser path=%:p:h<CR>", "find directories" },
   },
 }
 
@@ -307,7 +299,7 @@ M.blankline = {
 
         if ok then
           vim.api.nvim_win_set_cursor(vim.api.nvim_get_current_win(), { start, 0 })
-          vim.cmd [[normal! _]]
+          vim.cmd([[normal! _]])
         end
       end,
 

@@ -4,7 +4,7 @@ if not present then
   return
 end
 
-lualine.setup {
+lualine.setup({
   theme = "tokyonight",
   options = {
     section_separators = { left = "", right = "" },
@@ -12,10 +12,10 @@ lualine.setup {
   },
   sections = {
     lualine_a = { "mode" },
-    lualine_b = { "branch", "diff" },
+    lualine_b = { "branch", "diff", { "diagnostics", sources = { "nvim_workspace_diagnostic" }, sections = { "error" } } },
     lualine_c = { "filename", "diagnostics" },
     lualine_x = {},
     lualine_y = { "encoding" },
     lualine_z = { "progress" },
   },
-}
+})

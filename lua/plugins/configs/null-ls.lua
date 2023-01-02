@@ -23,13 +23,13 @@ local sources = {
   b.formatting.rustfmt,
 }
 
-null_ls.setup {
+null_ls.setup({
   sources = sources,
-  root_dir = require("null-ls.utils").root_pattern ".git",
+  root_dir = require("null-ls.utils").root_pattern(".git"),
 
   on_attach = function(client)
     if client.server_capabilities.documentFormattingProvider then
-      vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.format { async = false }"
+      vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format { async = false }")
     end
   end,
-}
+})

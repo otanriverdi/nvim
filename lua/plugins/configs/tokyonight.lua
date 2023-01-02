@@ -4,7 +4,7 @@ if not present then
   return
 end
 
-tokyonight.setup {
+tokyonight.setup({
   transparent = true,
   styles = {
     sidebars = "transparent",
@@ -18,6 +18,6 @@ tokyonight.setup {
       fg = c.blue,
     }
   end,
-}
+})
 
-vim.cmd [[colorscheme tokyonight]]
+vim.cmd([[colorscheme tokyonight]])

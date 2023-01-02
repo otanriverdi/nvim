@@ -58,7 +58,8 @@ local options = {
 
   extensions = {
     file_browser = {
-      files = false,
+      hijack_netrw = true,
+      hidden = true,
     },
   },
 

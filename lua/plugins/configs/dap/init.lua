@@ -17,8 +17,8 @@ M.dap = function()
   vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticSignWarn", linehl = "", numhl = "" })
   vim.fn.sign_define("DapStopped", { text = "", texthl = "GitSignsDelete", linehl = "GitSignsDeleteLn", numhl = "" })
 
-  require "plugins.configs.dap.go"
-  require "plugins.configs.dap.node"
+  require("plugins.configs.dap.go")
+  require("plugins.configs.dap.node")
 end
 
 M.dapui = function()
@@ -28,7 +28,7 @@ M.dapui = function()
     return
   end
 
-  dapui.setup {
+  dapui.setup({
     icons = { expanded = "▾", collapsed = "▸" },
     mappings = {
       -- Use a table to apply multiple mappings
@@ -41,7 +41,7 @@ M.dapui = function()
     },
     -- Expand lines larger than the window
     -- Requires >= 0.7
-    expand_lines = vim.fn.has "nvim-0.7",
+    expand_lines = vim.fn.has("nvim-0.7"),
     -- Layouts define sections of the screen to place windows.
     -- The position can be 'left', 'right', 'top' or 'bottom'.
     -- The size specifies the height/width depending on position. It can be an Int
@@ -81,10 +81,10 @@ M.dapui = function()
     render = {
       max_type_length = nil, -- Can be integer or nil.
     },
-  }
+  })
 
   -- We know dap exists because we load dapui after it
-  local dap = require "dap"
+  local dap = require("dap")
 
   dap.listeners.after.event_initialized["dapui_config"] = function()
     dapui.open(1)

@@ -22,7 +22,7 @@ M.load_mappings = function(section, mapping_opt)
     end
   end
 
-  local mappings = require "core.mappings"
+  local mappings = require("core.mappings")
 
   if type(section) == "string" then
     mappings[section]["plugin"] = nil
@@ -40,7 +40,7 @@ M.packer_sync = function(...)
   if packer_exists then
     packer.sync(...)
   else
-    error "Packer could not be loaded!"
+    error("Packer could not be loaded!")
   end
 end
 

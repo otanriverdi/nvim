@@ -1,6 +1,6 @@
 local M = {}
 
-local utils = require "core.utils"
+local utils = require("core.utils")
 
 M.fidget = function()
   local present, fidget = pcall(require, "fidget")
@@ -9,11 +9,11 @@ M.fidget = function()
     return
   end
 
-  fidget.setup {
+  fidget.setup({
     window = {
       blend = 0,
     },
-  }
+  })
 end
 
 M.diffview = function()
@@ -50,7 +50,7 @@ M.autopairs = function()
 
   autopairs.setup(options)
 
-  local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+  local cmp_autopairs = require("nvim-autopairs.completion.cmp")
   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 end
 
@@ -182,7 +182,7 @@ M.luasnip = function()
   }
 
   luasnip.config.set_config(options)
-  require("luasnip.loaders.from_vscode").lazy_load { paths = vim.g.luasnippets_path or "" }
+  require("luasnip.loaders.from_vscode").lazy_load({ paths = vim.g.luasnippets_path or "" })
   require("luasnip.loaders.from_vscode").lazy_load()
 
   vim.api.nvim_create_autocmd("InsertLeave", {
@@ -385,7 +385,7 @@ M.packer_init = function()
       removed_sym = " ",
       moved_sym = "",
       open_fn = function()
-        return require("packer.util").float { border = "single" }
+        return require("packer.util").float({ border = "single" })
       end,
     },
   }
