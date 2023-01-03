@@ -33,3 +33,9 @@ null_ls.setup({
     end
   end,
 })
+
+-- To restart eslint
+vim.api.nvim_create_user_command("EslintRestart", function()
+  vim.cmd("silent !ps ax | grep eslint_d | grep -v grep | awk '{print $1}' | xargs kill")
+  vim.cmd("e")
+end, {})

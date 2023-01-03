@@ -147,25 +147,11 @@ M.lspconfig = {
       "lsp declaration",
     },
 
-    ["gd"] = {
-      function()
-        vim.lsp.buf.definition()
-      end,
-      "lsp definition",
-    },
-
     ["K"] = {
       function()
         vim.lsp.buf.hover()
       end,
       "lsp hover",
-    },
-
-    ["gi"] = {
-      function()
-        vim.lsp.buf.implementation()
-      end,
-      "lsp implementation",
     },
 
     ["<leader>ls"] = {
@@ -194,13 +180,6 @@ M.lspconfig = {
         vim.lsp.buf.code_action()
       end,
       "lsp code_action",
-    },
-
-    ["gr"] = {
-      function()
-        vim.lsp.buf.references()
-      end,
-      "lsp references",
     },
 
     ["<leader>f"] = {
@@ -283,6 +262,24 @@ M.telescope = {
     ["<leader>fS"] = { "<cmd> Telescope lsp_workspace_symbols <CR>", "find workspace symbols" },
 
     ["<leader>e"] = { "<cmd> Telescope file_browser path=%:p:h<CR>", "find directories" },
+
+    -- LSP stuff
+    ["gd"] = {
+      "<cmd> Telescope lsp_definitions<CR>",
+      "lsp definitions",
+    },
+    ["gr"] = {
+      "<cmd> Telescope lsp_references<CR>",
+      "lsp references",
+    },
+    ["gi"] = {
+      "<cmd> Telescope lsp_implementations<CR>",
+      "lsp implementation",
+    },
+    ["<leader>dd"] = {
+      "<cmd> Telescope diagnostics<CR>",
+      "lsp diagnostics",
+    },
   },
 }
 
