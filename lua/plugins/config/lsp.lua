@@ -89,6 +89,7 @@ return {
                 vim.lsp.buf.declaration()
               end,
               "lsp declaration",
+              opts = { buffer = bufnr },
             },
 
             ["K"] = {
@@ -96,6 +97,7 @@ return {
                 vim.lsp.buf.hover()
               end,
               "lsp hover",
+              opts = { buffer = bufnr },
             },
 
             ["<leader>ls"] = {
@@ -103,6 +105,7 @@ return {
                 vim.lsp.buf.signature_help()
               end,
               "lsp signature_help",
+              opts = { buffer = bufnr },
             },
 
             ["<leader>D"] = {
@@ -110,6 +113,7 @@ return {
                 vim.lsp.buf.type_definition()
               end,
               "lsp definition type",
+              opts = { buffer = bufnr },
             },
 
             ["<leader>ra"] = {
@@ -117,6 +121,7 @@ return {
                 vim.lsp.buf.rename()
               end,
               "lsp rename",
+              opts = { buffer = bufnr },
             },
 
             ["<leader>ca"] = {
@@ -124,6 +129,7 @@ return {
                 vim.lsp.buf.code_action()
               end,
               "lsp code_action",
+              opts = { buffer = bufnr },
             },
 
             ["<leader>f"] = {
@@ -131,6 +137,7 @@ return {
                 vim.diagnostic.open_float()
               end,
               "floating diagnostic",
+              opts = { buffer = bufnr },
             },
 
             ["[d"] = {
@@ -138,6 +145,7 @@ return {
                 vim.diagnostic.goto_prev()
               end,
               "goto prev",
+              opts = { buffer = bufnr },
             },
 
             ["]d"] = {
@@ -145,6 +153,7 @@ return {
                 vim.diagnostic.goto_next()
               end,
               "goto_next",
+              opts = { buffer = bufnr },
             },
 
             ["<leader>q"] = {
@@ -152,6 +161,7 @@ return {
                 vim.diagnostic.setloclist()
               end,
               "diagnostic setloclist",
+              opts = { buffer = bufnr },
             },
 
             ["<leader>fm"] = {
@@ -159,6 +169,7 @@ return {
                 vim.lsp.buf.format({ async = true })
               end,
               "lsp formatting",
+              opts = { buffer = bufnr },
             },
 
             ["<leader>wa"] = {
@@ -166,6 +177,7 @@ return {
                 vim.lsp.buf.add_workspace_folder()
               end,
               "add workspace folder",
+              opts = { buffer = bufnr },
             },
 
             ["<leader>wr"] = {
@@ -173,6 +185,7 @@ return {
                 vim.lsp.buf.remove_workspace_folder()
               end,
               "remove workspace folder",
+              opts = { buffer = bufnr },
             },
 
             ["<leader>wl"] = {
@@ -180,6 +193,7 @@ return {
                 print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
               end,
               "list workspace folders",
+              opts = { buffer = bufnr },
             },
           },
         }

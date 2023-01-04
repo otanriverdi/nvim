@@ -6,8 +6,6 @@ return {
         ["<leader>ma"] = { ":lua require('harpoon.mark').add_file()<CR>", "add file to harpoon" },
         ["<leader>mr"] = { ":lua require('harpoon.mark').rm_file()<CR>", "add file to harpoon" },
         ["<leader>mf"] = { ":lua require('harpoon.ui').toggle_quick_menu()<CR>", "toggle harpoon menu" },
-        ["<TAB>"] = { ":lua require('harpoon.ui').nav_next()<CR>", "jump to next harpoon file" },
-        ["<S-Tab>"] = { ":lua require('harpoon.ui').nav_prev()<CR>", "jump to next harpoon file" },
       },
     }
 
