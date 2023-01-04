@@ -13,6 +13,7 @@ return {
         b.formatting.prettierd,
         b.diagnostics.eslint_d,
         b.code_actions.eslint_d,
+        require("typescript.extensions.null-ls.code-actions"),
 
         -- Lua
         b.formatting.stylua,
