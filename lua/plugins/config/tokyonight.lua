@@ -6,7 +6,8 @@ return {
     local tn = require("tokyonight")
 
     tn.setup({
-      transparent = true,
+      terminal_colors = true,
+      style = "storm",
       styles = {
         sidebars = "transparent",
         floats = "transparent",
