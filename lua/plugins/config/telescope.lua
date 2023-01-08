@@ -63,8 +63,7 @@ return {
 
         extensions = {
           file_browser = {
-            hijack_netrw = true,
-            hidden = true,
+            files = false,
           },
         },
 
@@ -91,6 +90,7 @@ return {
           ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
           ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
           ["<leader>tk"] = { "<cmd> Telescope keymaps <CR>", "show keys" },
+          ["<leader>fd"] = { "<cmd> Telescope file_browser <CR>", "find directories" },
 
           -- git
           ["<leader>cm"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
@@ -99,8 +99,6 @@ return {
           -- symbols
           ["<leader>fs"] = { "<cmd> Telescope lsp_document_symbols <CR>", "find document symbols" },
           ["<leader>fS"] = { "<cmd> Telescope lsp_workspace_symbols <CR>", "find workspace symbols" },
-
-          ["<leader>e"] = { "<cmd> Telescope file_browser path=%:p:h<CR>", "find directories" },
 
           -- LSP stuff
           ["gd"] = {

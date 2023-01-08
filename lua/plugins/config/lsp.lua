@@ -156,14 +156,6 @@ return {
               opts = { buffer = bufnr },
             },
 
-            ["<leader>q"] = {
-              function()
-                vim.diagnostic.setloclist()
-              end,
-              "diagnostic setloclist",
-              opts = { buffer = bufnr },
-            },
-
             ["<leader>fm"] = {
               function()
                 vim.lsp.buf.format({ async = true })
