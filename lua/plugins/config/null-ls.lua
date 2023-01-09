@@ -35,7 +35,13 @@ return {
             vim.api.nvim_create_autocmd("BufWritePre", {
               buffer = bufnr,
               callback = function()
-                vim.lsp.buf.format({ bufnr = bufnr, async = false })
+                vim.lsp.buf.format({
+                  bufnr = bufnr,
+                  async = false,
+                  filter = function(c)
+                    return c.name == "null-ls"
+                  end,
+                })
               end,
             })
           end
