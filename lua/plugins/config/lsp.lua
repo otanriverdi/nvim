@@ -12,11 +12,13 @@ return {
       },
       {
         "j-hui/fidget.nvim",
-        config = {
-          window = {
-            blend = 0,
-          },
-        },
+        config = function()
+          require("fidget").setup({
+            window = {
+              blend = 0,
+            },
+          })
+        end,
       },
     },
     config = function()
