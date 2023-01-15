@@ -4,6 +4,7 @@ return {
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "jose-elias-alvarez/typescript.nvim",
+      { "simrat39/rust-tools.nvim", dependencies = { "nvim-lua/plenary.nvim", "mfussenegger/nvim-dap" } },
       {
         "folke/neodev.nvim",
         config = function()
@@ -200,7 +201,7 @@ return {
 
       -- Add the server here if you dont want to override settings
       -- otherwise you need to manually setup
-      local servers = { "html", "cssls", "gopls", "rust_analyzer", "sumneko_lua" }
+      local servers = { "html", "cssls", "gopls", "sumneko_lua" }
 
       for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup({
@@ -215,6 +216,18 @@ return {
           on_attach = M.on_attach,
           capabilities = M.capabilities,
           root_dir = require("lspconfig.util").root_pattern(".git"),
+        },
+      })
+
+      local rust = require("rust-tools")
+
+      rust.setup({
+        server = {
+          on_attach = M.on_attach,
+          capabilities = M.capabilities,
+        },
+        inlay_hints = {
+          auto = false,
         },
       })
 
