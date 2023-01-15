@@ -1,7 +1,7 @@
 return {
-  "kylechui/nvim-surround",
+  "ggandor/leap.nvim",
   event = { "BufReadPre", "BufNewFile" },
   config = function()
-    require("nvim-surround").setup({})
+    require("leap").add_default_mappings()
   end,
 }
