@@ -5,7 +5,7 @@ return {
     local l = require("lualine")
 
     l.setup({
-      theme = "tokyonight",
+      theme = "catppuccin",
       options = {
         section_separators = { left = "", right = "" },
         component_separators = { left = "", right = "" },

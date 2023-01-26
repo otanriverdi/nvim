@@ -201,7 +201,7 @@ return {
 
       -- Add the server here if you dont want to override settings
       -- otherwise you need to manually setup
-      local servers = { "html", "cssls", "gopls", "sumneko_lua" }
+      local servers = { "html", "cssls", "gopls", "sumneko_lua", "eslint" }
 
       for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup({

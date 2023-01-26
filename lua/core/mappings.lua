@@ -24,10 +24,10 @@ local mappings = {
     ["<C-u>"] = { "<C-u>zz" },
 
     -- switch between windows
-    ["<C-h>"] = { "<C-w>h", "window left" },
-    ["<C-l>"] = { "<C-w>l", "window right" },
-    ["<C-j>"] = { "<C-w>j", "window down" },
-    ["<C-k>"] = { "<C-w>k", "window up" },
+    -- ["<C-h>"] = { "<C-w>h", "window left" },
+    -- ["<C-l>"] = { "<C-w>l", "window right" },
+    -- ["<C-j>"] = { "<C-w>j", "window down" },
+    -- ["<C-k>"] = { "<C-w>k", "window up" },
 
     -- Copy all
     ["<C-c>"] = { "<cmd> %y+ <CR>", "copy whole file" },

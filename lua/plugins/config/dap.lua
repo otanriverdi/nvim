@@ -107,17 +107,13 @@ return {
       },
     },
     config = function()
-      vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
-      vim.fn.sign_define(
-        "DapBreakpointRejected",
-        { text = "", texthl = "DiagnosticSignWarn", linehl = "", numhl = "" }
-      )
-      vim.fn.sign_define(
-        "DapStopped",
-        { text = "", texthl = "GitSignsDelete", linehl = "GitSignsDeleteLn", numhl = "" }
-      )
-
       local dap = require("dap")
+      local sign = vim.fn.sign_define
+
+      -- for catpuccin
+      sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
+      sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
+      sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
 
       dap.adapters.delve = {
         type = "server",
