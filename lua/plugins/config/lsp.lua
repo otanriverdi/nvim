@@ -4,7 +4,12 @@ return {
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "jose-elias-alvarez/typescript.nvim",
-      { "simrat39/rust-tools.nvim", dependencies = { "nvim-lua/plenary.nvim", "mfussenegger/nvim-dap" } },
+      {
+        "simrat39/rust-tools.nvim",
+        dependencies = {
+          "nvim-lua/plenary.nvim",--[[ , "mfussenegger/nvim-dap"  ]]
+        },
+      },
       {
         "folke/neodev.nvim",
         config = function()
@@ -201,7 +206,7 @@ return {
 
       -- Add the server here if you dont want to override settings
       -- otherwise you need to manually setup
-      local servers = { "html", "cssls", "gopls", "sumneko_lua", "eslint" }
+      local servers = { "html", "cssls", "gopls", "lua_ls", "eslint" }
 
       for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup({

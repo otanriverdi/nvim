@@ -1,46 +1,34 @@
 return {
   "catppuccin/nvim",
   name = "catppuccin",
-  enabled = false,
+  -- enabled = false,
   lazy = false,
   priority = 1000,
   config = function()
     local catpuccin = require("catppuccin")
 
     catpuccin.setup({
-      flavour = "macchiato",
+      flavour = "macchiato", -- latte, frappe, macchiato, mocha
+      transparent_background = false,
       term_colors = true,
       integrations = {
         cmp = true,
         gitsigns = true,
-        harpoon = true,
-        mason = true,
+        nvimtree = false,
         telescope = true,
-        treesitter = true,
-        dap = {
-          enabled = true,
-          enable_ui = true,
-        },
-        indent_blankline = {
-          enabled = true,
-          colored_indent_levels = false,
-        },
-        native_lsp = {
-          enabled = true,
-          virtual_text = {
-            errors = { "italic" },
-            hints = { "italic" },
-            warnings = { "italic" },
-            information = { "italic" },
-          },
-          underlines = {
-            errors = { "underline" },
-            hints = { "underline" },
-            warnings = { "underline" },
-            information = { "underline" },
-          },
-        },
+        notify = false,
+        mini = false,
+        harpoon = true,
+        leap = true,
+        treesitter_context = true,
       },
+      custom_highlights = function(c)
+        return { CursorLineNr = {
+          fg = c.blue,
+        }, LineNr = {
+          fg = c.blue,
+        } }
+      end,
     })
 
     vim.cmd([[colorscheme catppuccin]])

@@ -131,7 +131,7 @@ return {
         sources = {
           { name = "luasnip" },
           { name = "nvim_lsp" },
-          { name = "buffer" },
+          -- { name = "buffer", keyword_length = 5 },
           { name = "nvim_lua" },
           { name = "path" },
           { name = "nvim_lsp_signature_help" },

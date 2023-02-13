@@ -67,14 +67,14 @@ return {
             },
 
             -- Actions
-            ["<leader>rh"] = {
+            ["<leader>gr"] = {
               function()
                 require("gitsigns").reset_hunk()
               end,
               "Reset hunk",
             },
 
-            ["<leader>ph"] = {
+            ["<leader>gp"] = {
               function()
                 require("gitsigns").preview_hunk()
               end,
@@ -88,7 +88,7 @@ return {
               "Blame line",
             },
 
-            ["<leader>td"] = {
+            ["<leader>gd"] = {
               function()
                 require("gitsigns").toggle_deleted()
               end,
