@@ -22,6 +22,7 @@ return {
         lualine_y = { "encoding" },
         lualine_z = { "progress" },
       },
+      extensions = { "fugitive" },
     })
   end,
 }
