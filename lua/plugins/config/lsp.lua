@@ -116,7 +116,7 @@ return {
               opts = { buffer = bufnr },
             },
 
-            ["<leader>D"] = {
+            ["<leader>lt"] = {
               function()
                 vim.lsp.buf.type_definition()
               end,
@@ -124,7 +124,7 @@ return {
               opts = { buffer = bufnr },
             },
 
-            ["<leader>ra"] = {
+            ["<leader>lr"] = {
               function()
                 vim.lsp.buf.rename()
               end,
@@ -132,7 +132,7 @@ return {
               opts = { buffer = bufnr },
             },
 
-            ["<leader>ca"] = {
+            ["<leader>la"] = {
               function()
                 vim.lsp.buf.code_action()
               end,
@@ -164,7 +164,7 @@ return {
               opts = { buffer = bufnr },
             },
 
-            ["<leader>fm"] = {
+            ["<leader>lf"] = {
               function()
                 vim.lsp.buf.format({ async = true })
               end,
@@ -172,29 +172,29 @@ return {
               opts = { buffer = bufnr },
             },
 
-            ["<leader>wa"] = {
-              function()
-                vim.lsp.buf.add_workspace_folder()
-              end,
-              "add workspace folder",
-              opts = { buffer = bufnr },
-            },
+            -- ["<leader>wa"] = {
+            --   function()
+            --     vim.lsp.buf.add_workspace_folder()
+            --   end,
+            --   "add workspace folder",
+            --   opts = { buffer = bufnr },
+            -- },
+            --
+            -- ["<leader>wr"] = {
+            --   function()
+            --     vim.lsp.buf.remove_workspace_folder()
+            --   end,
+            --   "remove workspace folder",
+            --   opts = { buffer = bufnr },
+            -- },
 
-            ["<leader>wr"] = {
-              function()
-                vim.lsp.buf.remove_workspace_folder()
-              end,
-              "remove workspace folder",
-              opts = { buffer = bufnr },
-            },
-
-            ["<leader>wl"] = {
-              function()
-                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-              end,
-              "list workspace folders",
-              opts = { buffer = bufnr },
-            },
+            -- ["<leader>wl"] = {
+            --   function()
+            --     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+            --   end,
+            --   "list workspace folders",
+            --   opts = { buffer = bufnr },
+            -- },
           },
         }
 

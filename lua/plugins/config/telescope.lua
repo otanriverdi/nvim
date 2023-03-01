@@ -89,12 +89,12 @@ return {
           ["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "find buffers" },
           ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
           ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
-          ["<leader>tk"] = { "<cmd> Telescope keymaps <CR>", "show keys" },
+          ["<leader>fk"] = { "<cmd> Telescope keymaps <CR>", "show keys" },
           ["<leader>fd"] = { "<cmd> Telescope file_browser <CR>", "find directories" },
 
           -- git
-          ["<leader>cm"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
-          ["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "git status" },
+          ["<leader>fc"] = { "<cmd> Telescope git_commits <CR>", "git commits" },
+          ["<leader>fg"] = { "<cmd> Telescope git_status <CR>", "git status" },
 
           -- symbols
           ["<leader>fs"] = { "<cmd> Telescope lsp_document_symbols <CR>", "find document symbols" },

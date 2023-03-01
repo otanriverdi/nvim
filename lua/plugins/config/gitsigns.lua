@@ -38,7 +38,7 @@ return {
         local mappings = {
           n = {
             -- Navigation through hunks
-            ["]c"] = {
+            ["]h"] = {
               function()
                 if vim.wo.diff then
                   return "]c"
@@ -52,7 +52,7 @@ return {
               opts = { expr = true },
             },
 
-            ["[c"] = {
+            ["[h"] = {
               function()
                 if vim.wo.diff then
                   return "[c"
