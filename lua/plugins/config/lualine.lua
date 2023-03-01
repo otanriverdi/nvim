@@ -17,7 +17,7 @@ return {
           "diff",
           { "diagnostics", sources = { "nvim_workspace_diagnostic" }, sections = { "error" } },
         },
-        lualine_c = { "filename", "diagnostics" },
+        lualine_c = { { "filename", path = 1 }, "diagnostics" },
         lualine_x = {},
         lualine_y = { "encoding" },
         lualine_z = { "progress" },
