@@ -230,6 +230,13 @@ return {
         server = {
           on_attach = M.on_attach,
           capabilities = M.capabilities,
+          settings = {
+            ["rust-analyzer"] = {
+              checkOnSave = {
+                command = "clippy",
+              },
+            },
+          },
         },
         inlay_hints = {
           auto = false,
