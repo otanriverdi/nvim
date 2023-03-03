@@ -55,6 +55,7 @@ opt.incsearch = true
 opt.scrolloff = 8
 
 g.mapleader = " "
+g.maplocalleader = " "
 
 local default_providers = {
   "node",
