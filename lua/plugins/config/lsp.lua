@@ -7,7 +7,8 @@ return {
       {
         "simrat39/rust-tools.nvim",
         dependencies = {
-          "nvim-lua/plenary.nvim",--[[ , "mfussenegger/nvim-dap"  ]]
+          "nvim-lua/plenary.nvim",
+          "mfussenegger/nvim-dap",
         },
       },
       {
@@ -171,30 +172,6 @@ return {
               "lsp formatting",
               opts = { buffer = bufnr },
             },
-
-            -- ["<leader>wa"] = {
-            --   function()
-            --     vim.lsp.buf.add_workspace_folder()
-            --   end,
-            --   "add workspace folder",
-            --   opts = { buffer = bufnr },
-            -- },
-            --
-            -- ["<leader>wr"] = {
-            --   function()
-            --     vim.lsp.buf.remove_workspace_folder()
-            --   end,
-            --   "remove workspace folder",
-            --   opts = { buffer = bufnr },
-            -- },
-
-            -- ["<leader>wl"] = {
-            --   function()
-            --     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-            --   end,
-            --   "list workspace folders",
-            --   opts = { buffer = bufnr },
-            -- },
           },
         }
 
@@ -223,6 +200,9 @@ return {
           root_dir = require("lspconfig.util").root_pattern(".git"),
         },
       })
+      local extension_path = vim.env.HOME .. "/.local/share/nvim/mason/packages/codelldb/extension/"
+      local codelldb_path = extension_path .. "adapter/codelldb"
+      local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
 
       local rust = require("rust-tools")
 
@@ -240,6 +220,9 @@ return {
         },
         inlay_hints = {
           auto = false,
+        },
+        dap = {
+          adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
         },
       })
 
