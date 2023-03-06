@@ -1,7 +1,7 @@
 return {
   {
     "rcarriga/nvim-dap-ui",
-    cmd = { "DapUIOpen", "DapContinue" },
+    cmd = { "DapUIOpen", "DapContinue", "DapToggleBreakpoint" },
     dependencies = {
       "mxsdev/nvim-dap-vscode-js",
     },
