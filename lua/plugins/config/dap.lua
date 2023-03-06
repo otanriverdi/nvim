@@ -1,7 +1,7 @@
 return {
   {
     "rcarriga/nvim-dap-ui",
-    cmd = { "DapUIOpen", "DapContinue", "DapToggleBreakpoint" },
+    cmd = { "DapUIOpen", "DapContinue", "DapToggleBreakpoint", "DapNodeSetPort" },
     dependencies = {
       "mxsdev/nvim-dap-vscode-js",
     },
@@ -115,24 +115,23 @@ return {
             processId = require("dap.utils").pick_process,
             cwd = "${workspaceFolder}",
           },
-          {
-            type = "pwa-node",
-            request = "attach",
-            name = "Attach (9001)",
-            processId = require("dap.utils").pick_process,
-            cwd = "${workspaceFolder}",
-            port = 9001,
-          },
-          {
-            type = "pwa-node",
-            request = "attach",
-            name = "Attach (9005)",
-            processId = require("dap.utils").pick_process,
-            cwd = "${workspaceFolder}",
-            port = 9005,
-          },
         }
       end
+
+      vim.api.nvim_create_user_command("DapNodeSetPort", function(opts)
+        for _, language in ipairs({ "typescript", "javascript" }) do
+          local configs = require("dap").configurations[language]
+
+          require("dap").configurations[language][#configs + 1] = {
+            type = "pwa-node",
+            request = "attach",
+            name = "Attach (" .. opts.args .. ")",
+            processId = require("dap.utils").pick_process,
+            cwd = "${workspaceFolder}",
+            port = opts.args,
+          }
+        end
+      end, { nargs = 1 })
     end,
   },
   {
@@ -210,6 +209,7 @@ return {
       local mappings = {
         n = {
           ["<leader>dc"] = { "<cmd>DapContinue<CR>", "dap continue" },
+          ["<leader>dt"] = { "<cmd>DapTerminate<CR>", "dap terminate" },
           ["<leader>do"] = { "<cmd>lua require('dap').step_over()<CR>", "dap step over" },
           ["<leader>di"] = { "<cmd>lua require('dap').step_into()<CR>", "dap step into" },
           ["<leader>de"] = { "<cmd>lua require('dap').step_out()<CR>", "dap step out" },
