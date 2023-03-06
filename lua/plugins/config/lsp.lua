@@ -1,16 +1,101 @@
+local function on_attach(client, bufnr)
+  client.server_capabilities.documentFormattingProvider = false
+  client.server_capabilities.documentRangeFormattingProvider = false
+
+  local mappings = {
+    n = {
+      ["gD"] = {
+        function()
+          vim.lsp.buf.declaration()
+        end,
+        "lsp declaration",
+        opts = { buffer = bufnr },
+      },
+
+      ["K"] = {
+        function()
+          vim.lsp.buf.hover()
+        end,
+        "lsp hover",
+        opts = { buffer = bufnr },
+      },
+
+      ["<leader>ls"] = {
+        function()
+          vim.lsp.buf.signature_help()
+        end,
+        "lsp signature_help",
+        opts = { buffer = bufnr },
+      },
+
+      ["<leader>lt"] = {
+        function()
+          vim.lsp.buf.type_definition()
+        end,
+        "lsp definition type",
+        opts = { buffer = bufnr },
+      },
+
+      ["<leader>lr"] = {
+        function()
+          vim.lsp.buf.rename()
+        end,
+        "lsp rename",
+        opts = { buffer = bufnr },
+      },
+
+      ["<leader>la"] = {
+        function()
+          vim.lsp.buf.code_action()
+        end,
+        "lsp code_action",
+        opts = { buffer = bufnr },
+      },
+
+      ["<leader>f"] = {
+        function()
+          vim.diagnostic.open_float()
+        end,
+        "floating diagnostic",
+        opts = { buffer = bufnr },
+      },
+
+      ["[d"] = {
+        function()
+          vim.diagnostic.goto_prev()
+        end,
+        "goto prev",
+        opts = { buffer = bufnr },
+      },
+
+      ["]d"] = {
+        function()
+          vim.diagnostic.goto_next()
+        end,
+        "goto_next",
+        opts = { buffer = bufnr },
+      },
+
+      ["<leader>lf"] = {
+        function()
+          vim.lsp.buf.format({ async = true })
+        end,
+        "lsp formatting",
+        opts = { buffer = bufnr },
+      },
+    },
+  }
+
+  local utils = require("core.utils")
+
+  utils.load_mappings(mappings)
+end
+
 return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
-      "jose-elias-alvarez/typescript.nvim",
-      {
-        "simrat39/rust-tools.nvim",
-        dependencies = {
-          "nvim-lua/plenary.nvim",
-          "mfussenegger/nvim-dap",
-        },
-      },
       {
         "folke/neodev.nvim",
         config = function()
@@ -83,100 +168,8 @@ return {
       end
 
       local M = {}
-      local utils = require("core.utils")
 
       -- export on_attach & capabilities for custom lspconfigs
-
-      M.on_attach = function(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-
-        local mappings = {
-          n = {
-            ["gD"] = {
-              function()
-                vim.lsp.buf.declaration()
-              end,
-              "lsp declaration",
-              opts = { buffer = bufnr },
-            },
-
-            ["K"] = {
-              function()
-                vim.lsp.buf.hover()
-              end,
-              "lsp hover",
-              opts = { buffer = bufnr },
-            },
-
-            ["<leader>ls"] = {
-              function()
-                vim.lsp.buf.signature_help()
-              end,
-              "lsp signature_help",
-              opts = { buffer = bufnr },
-            },
-
-            ["<leader>lt"] = {
-              function()
-                vim.lsp.buf.type_definition()
-              end,
-              "lsp definition type",
-              opts = { buffer = bufnr },
-            },
-
-            ["<leader>lr"] = {
-              function()
-                vim.lsp.buf.rename()
-              end,
-              "lsp rename",
-              opts = { buffer = bufnr },
-            },
-
-            ["<leader>la"] = {
-              function()
-                vim.lsp.buf.code_action()
-              end,
-              "lsp code_action",
-              opts = { buffer = bufnr },
-            },
-
-            ["<leader>f"] = {
-              function()
-                vim.diagnostic.open_float()
-              end,
-              "floating diagnostic",
-              opts = { buffer = bufnr },
-            },
-
-            ["[d"] = {
-              function()
-                vim.diagnostic.goto_prev()
-              end,
-              "goto prev",
-              opts = { buffer = bufnr },
-            },
-
-            ["]d"] = {
-              function()
-                vim.diagnostic.goto_next()
-              end,
-              "goto_next",
-              opts = { buffer = bufnr },
-            },
-
-            ["<leader>lf"] = {
-              function()
-                vim.lsp.buf.format({ async = true })
-              end,
-              "lsp formatting",
-              opts = { buffer = bufnr },
-            },
-          },
-        }
-
-        utils.load_mappings(mappings)
-      end
 
       M.capabilities = vim.lsp.protocol.make_client_capabilities()
       M.capabilities = require("cmp_nvim_lsp").default_capabilities(M.capabilities)
@@ -187,44 +180,10 @@ return {
 
       for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup({
-          on_attach = M.on_attach,
+          on_attach = on_attach,
           capabilities = M.capabilities,
         })
       end
-
-      -- We configure this here to have access to our custom on_attach and capabilities functions
-      require("typescript").setup({
-        server = {
-          on_attach = M.on_attach,
-          capabilities = M.capabilities,
-          root_dir = require("lspconfig.util").root_pattern(".git"),
-        },
-      })
-      local extension_path = vim.env.HOME .. "/.local/share/nvim/mason/packages/codelldb/extension/"
-      local codelldb_path = extension_path .. "adapter/codelldb"
-      local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
-
-      local rust = require("rust-tools")
-
-      rust.setup({
-        server = {
-          on_attach = M.on_attach,
-          capabilities = M.capabilities,
-          settings = {
-            ["rust-analyzer"] = {
-              checkOnSave = {
-                command = "clippy",
-              },
-            },
-          },
-        },
-        inlay_hints = {
-          auto = false,
-        },
-        dap = {
-          adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
-        },
-      })
 
       return M
     end,
@@ -278,6 +237,61 @@ return {
       end, {})
 
       mason.setup(options)
+    end,
+  },
+  {
+    "simrat39/rust-tools.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "neovim/nvim-lspconfig",
+      "rcarriga/nvim-dap-ui",
+    },
+    ft = "rust",
+    config = function()
+      local extension_path = vim.env.HOME .. "/.local/share/nvim/mason/packages/codelldb/extension/"
+      local codelldb_path = extension_path .. "adapter/codelldb"
+      local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
+
+      local rust = require("rust-tools")
+
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+      rust.setup({
+        server = {
+          on_attach = on_attach,
+          capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
+          settings = {
+            ["rust-analyzer"] = {
+              checkOnSave = {
+                command = "clippy",
+              },
+            },
+          },
+        },
+        dap = {
+          adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
+        },
+      })
+    end,
+  },
+  {
+    "jose-elias-alvarez/typescript.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    ft = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
+    config = function()
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+      -- We configure this here to have access to our custom on_attach and capabilities functions
+      require("typescript").setup({
+        server = {
+          on_attach = on_attach,
+          capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities),
+          root_dir = require("lspconfig.util").root_pattern(".git"),
+        },
+      })
     end,
   },
 }
