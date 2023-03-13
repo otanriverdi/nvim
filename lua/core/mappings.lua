@@ -45,7 +45,8 @@ local mappings = {
     ["<Down>"] = { 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', opts = { expr = true } },
 
     -- new buffer
-    ["<leader>b"] = { "<cmd> enew <CR>", "new buffer" },
+    ["<leader>bn"] = { "<cmd> enew <CR>", "new buffer" },
+    ["<leader>br"] = { "<cmd> %bd|e# <CR>", "close all other buffers" },
 
     ["<leader>h"] = { "<cmd> noh <CR>", "no highlight" },
   },

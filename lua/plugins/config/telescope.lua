@@ -74,7 +74,7 @@ return {
         n = {
           -- find
           ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "find files" },
-          ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
+          ["<leader>fa"] = { "<cmd> Telescope find_files no_ignore=true hidden=true <CR>", "find all" },
           ["<leader>fw"] = { "<cmd> Telescope live_grep <CR>", "live grep" },
           ["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "find buffers" },
           ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
@@ -88,7 +88,6 @@ return {
 
           -- symbols
           ["<leader>fs"] = { "<cmd> Telescope lsp_document_symbols <CR>", "find document symbols" },
-          ["<leader>fS"] = { "<cmd> Telescope lsp_workspace_symbols <CR>", "find workspace symbols" },
 
           -- LSP stuff
           ["gd"] = {
@@ -103,7 +102,7 @@ return {
             "<cmd> Telescope lsp_implementations<CR>",
             "lsp implementation",
           },
-          ["<leader>dd"] = {
+          ["<leader>ld"] = {
             "<cmd> Telescope diagnostics<CR>",
             "lsp diagnostics",
           },

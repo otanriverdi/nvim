@@ -2,6 +2,8 @@ local function on_attach(client, bufnr)
   client.server_capabilities.documentFormattingProvider = false
   client.server_capabilities.documentRangeFormattingProvider = false
 
+  require("lsp_signature").on_attach({ hint_enable = false }, bufnr)
+
   local mappings = {
     n = {
       ["gD"] = {
@@ -102,6 +104,7 @@ return {
           require("neodev").setup({})
         end,
       },
+      { "ray-x/lsp_signature.nvim" },
       {
         "j-hui/fidget.nvim",
         config = function()

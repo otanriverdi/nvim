@@ -7,7 +7,6 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
     },
@@ -135,7 +134,6 @@ return {
           -- { name = "buffer", keyword_length = 5 },
           { name = "nvim_lua" },
           { name = "path" },
-          { name = "nvim_lsp_signature_help" },
         },
       }
 
