@@ -18,6 +18,7 @@ return {
     require("neorg").setup({
       load = {
         ["core.defaults"] = {}, -- Loads default behaviour
+        ["core.export"] = {}, -- Loads default behaviour
         ["core.norg.completion"] = {
           config = {
             engine = "nvim-cmp",

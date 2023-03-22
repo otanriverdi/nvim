@@ -20,7 +20,7 @@ opt.softtabstop = 2
 
 opt.ignorecase = true
 opt.smartcase = true
-opt.mouse = "a"
+opt.mouse = ""
 
 -- Numbers
 opt.number = true
