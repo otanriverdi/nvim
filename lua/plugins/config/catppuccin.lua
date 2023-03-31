@@ -19,7 +19,7 @@ return {
         notify = false,
         mini = false,
         harpoon = true,
-        leap = true,
+        -- leap = true,
         treesitter_context = true,
       },
       custom_highlights = function(c)

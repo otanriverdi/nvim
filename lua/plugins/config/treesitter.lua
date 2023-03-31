@@ -20,6 +20,7 @@ return {
         highlight = {
           enable = true,
           use_languagetree = true,
+          additional_vim_regex_highlighting = { "markdown" },
         },
 
         indent = {
@@ -39,6 +40,7 @@ return {
           "tsx",
           "go",
           "rust",
+          "markdown",
         },
 
         autotag = {
