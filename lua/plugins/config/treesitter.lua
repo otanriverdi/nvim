@@ -41,6 +41,7 @@ return {
           "go",
           "rust",
           "markdown",
+          "python",
         },
 
         autotag = {

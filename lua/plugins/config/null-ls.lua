@@ -22,6 +22,10 @@ return {
 
         -- Rust
         b.formatting.rustfmt,
+
+        -- Python
+        b.diagnostics.pylint,
+        b.formatting.black,
       }
 
       null_ls.setup({

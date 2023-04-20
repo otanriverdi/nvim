@@ -210,6 +210,7 @@ return {
         n = {
           ["<leader>dc"] = { "<cmd>DapContinue<CR>", "dap continue" },
           ["<leader>dt"] = { "<cmd>DapTerminate<CR>", "dap terminate" },
+          ["<leader>dk"] = { "<cmd>lua require('dap.ui.widgets').hover()<CR>", "dap hover" },
           ["<leader>do"] = { "<cmd>lua require('dap').step_over()<CR>", "dap step over" },
           ["<leader>di"] = { "<cmd>lua require('dap').step_into()<CR>", "dap step into" },
           ["<leader>de"] = { "<cmd>lua require('dap').step_out()<CR>", "dap step out" },

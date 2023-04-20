@@ -4,8 +4,8 @@ return {
     local mappings = {
       n = {
         ["<leader>ma"] = { ":lua require('harpoon.mark').add_file()<CR>", "add file to harpoon" },
-        ["<leader>mr"] = { ":lua require('harpoon.mark').rm_file()<CR>", "add file to harpoon" },
-        ["<leader>mf"] = { ":lua require('harpoon.ui').toggle_quick_menu()<CR>", "toggle harpoon menu" },
+        ["<leader>mr"] = { ":lua require('harpoon.mark').rm_file()<CR>", "remove file from harpoon" },
+        ["<leader>mf"] = { ":lua require('harpoon.ui').toggle_quick_menu()<CR>", "toggle harpoon list" },
       },
     }
 

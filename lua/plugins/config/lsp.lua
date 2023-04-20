@@ -101,7 +101,9 @@ return {
       {
         "folke/neodev.nvim",
         config = function()
-          require("neodev").setup({})
+          require("neodev").setup({
+            library = { plugins = { "nvim-dap-ui" }, types = true },
+          })
         end,
       },
       { "ray-x/lsp_signature.nvim" },
@@ -179,7 +181,7 @@ return {
 
       -- Add the server here if you dont want to override settings
       -- otherwise you need to manually setup
-      local servers = { "html", "cssls", "gopls", "lua_ls", "eslint" }
+      local servers = { "html", "cssls", "gopls", "lua_ls", "eslint", "pyright" }
 
       for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup({
@@ -209,6 +211,9 @@ return {
           "rust-analyzer",
           "eslint_d",
           "prettierd",
+          "pyright",
+          "pylint",
+          "black",
         }, -- not an option from mason.nvim
 
         PATH = "skip",
