@@ -87,7 +87,7 @@ return {
   },
   {
     "mxsdev/nvim-dap-vscode-js",
-    requires = { "mfussenegger/nvim-dap" },
+    require = { "mfussenegger/nvim-dap" },
     config = function()
       require("dap-vscode-js").setup({
         -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
