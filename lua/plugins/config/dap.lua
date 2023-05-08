@@ -3,7 +3,7 @@ return {
     "rcarriga/nvim-dap-ui",
     cmd = { "DapUIOpen", "DapContinue", "DapToggleBreakpoint", "DapNodeSetPort" },
     dependencies = {
-      "mxsdev/nvim-dap-vscode-js",
+      "mfussenegger/nvim-dap",
     },
     config = function()
       local dapui = require("dapui")
@@ -86,55 +86,6 @@ return {
     end,
   },
   {
-    "mxsdev/nvim-dap-vscode-js",
-    require = { "mfussenegger/nvim-dap" },
-    config = function()
-      require("dap-vscode-js").setup({
-        -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
-        -- debugger_path = "(runtimedir)/site/pack/packer/opt/vscode-js-debug", -- Path to vscode-js-debug installation.
-        debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
-        adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" }, -- which adapters to register in nvim-dap
-        -- log_file_path = "(stdpath cache)/dap_vscode_js.log" -- Path for file logging
-        -- log_file_level = false -- Logging level for output to file. Set to false to disable file logging.
-        -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
-      })
-
-      for _, language in ipairs({ "typescript", "javascript" }) do
-        require("dap").configurations[language] = {
-          {
-            type = "pwa-node",
-            request = "launch",
-            name = "Launch file",
-            program = "${file}",
-            cwd = "${workspaceFolder}",
-          },
-          {
-            type = "pwa-node",
-            request = "attach",
-            name = "Attach (Default)",
-            processId = require("dap.utils").pick_process,
-            cwd = "${workspaceFolder}",
-          },
-        }
-      end
-
-      vim.api.nvim_create_user_command("DapNodeSetPort", function(opts)
-        for _, language in ipairs({ "typescript", "javascript" }) do
-          local configs = require("dap").configurations[language]
-
-          require("dap").configurations[language][#configs + 1] = {
-            type = "pwa-node",
-            request = "attach",
-            name = "Attach (" .. opts.args .. ")",
-            processId = require("dap.utils").pick_process,
-            cwd = "${workspaceFolder}",
-            port = opts.args,
-          }
-        end
-      end, { nargs = 1 })
-    end,
-  },
-  {
     "mfussenegger/nvim-dap",
     dependencies = {
       {
@@ -200,9 +151,48 @@ return {
         },
       }
 
+      dap.adapters["pwa-node"] = {
+        type = "server",
+        port = "${port}",
+        executable = {
+          command = "js-debug-adapter", -- As I'm using mason, this will be in the path
+          args = { "${port}" },
+        },
+      }
+
+      for _, language in ipairs({ "typescript", "javascript" }) do
+        dap.configurations[language] = {
+          {
+            type = "pwa-node",
+            request = "attach",
+            name = "Attach to node",
+            processId = require("dap.utils").pick_process,
+            cwd = "${workspaceFolder}",
+          },
+        }
+      end
+
+      vim.api.nvim_create_user_command("DapNodeSetPort", function(opts)
+        for _, language in ipairs({ "typescript", "javascript" }) do
+          local configs = require("dap").configurations[language]
+
+          dap.configurations[language][#configs + 1] = {
+            type = "pwa-node",
+            request = "attach",
+            name = "Attach (" .. opts.args .. ")",
+            processId = require("dap.utils").pick_process,
+            cwd = "${workspaceFolder}",
+            port = opts.args,
+          }
+        end
+      end, { nargs = 1 })
+
       require("dap.ext.vscode").load_launchjs(
         nil,
-        { node = { "javascript", "javascriptreact", "typescriptreact", "typescript" } }
+        {
+          node = { "javascript", "javascriptreact", "typescriptreact", "typescript" },
+          ["pwa-node"] = { "javascript", "javascriptreact", "typescriptreact", "typescript" },
+        }
       )
     end,
     init = function()

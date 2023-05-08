@@ -105,7 +105,7 @@ return {
             behavior = cmp.ConfirmBehavior.Replace,
             select = false,
           }),
-          ["<leader>a"] = cmp.mapping(function()
+          ["<m-a>"] = cmp.mapping(function()
             vim.api.nvim_feedkeys(
               vim.fn["copilot#Accept"](vim.api.nvim_replace_termcodes("<Tab>", true, true, true)),
               "n",
