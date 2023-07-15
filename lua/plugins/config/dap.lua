@@ -1,213 +1,150 @@
 return {
-  {
+  "mfussenegger/nvim-dap",
+  lazy = true,
+  cmd = { "DapContinue", "DapToggleBreakpoint", "DapNodeSetPort" },
+  dependencies = {
     "rcarriga/nvim-dap-ui",
-    cmd = { "DapUIOpen", "DapContinue", "DapToggleBreakpoint", "DapNodeSetPort" },
-    dependencies = {
-      "mfussenegger/nvim-dap",
+    "theHamsta/nvim-dap-virtual-text",
+    "mxsdev/nvim-dap-vscode-js",
+    {
+      "nvim-telescope/telescope-dap.nvim",
+      dependencies = { "nvim-telescope/telescope.nvim" },
+      config = function()
+        local telescope = require("telescope")
+
+        telescope.load_extension("dap")
+      end,
     },
-    config = function()
-      local dapui = require("dapui")
-
-      dapui.setup({
-        icons = { expanded = "▾", collapsed = "▸" },
-        mappings = {
-          -- Use a table to apply multiple mappings
-          expand = { "<CR>", "<2-LeftMouse>" },
-          open = "o",
-          remove = "d",
-          edit = "e",
-          repl = "r",
-          toggle = "t",
-        },
-        -- Expand lines larger than the window
-        -- Requires >= 0.7
-        expand_lines = vim.fn.has("nvim-0.7"),
-        -- Layouts define sections of the screen to place windows.
-        -- The position can be 'left', 'right', 'top' or 'bottom'.
-        -- The size specifies the height/width depending on position. It can be an Int
-        -- or a Float. Integer specifies height/width directly (i.e. 20 lines/columns) while
-        -- Float value specifies percentage (i.e. 0.3 - 30% of available lines/columns)
-        -- Elements are the elements shown in the layout (in order).
-        -- Layouts are opened in order so that earlier layouts take priority in window sizing.
-        layouts = {
-          {
-            elements = {
-              -- Elements can be strings or table with id and size keys.
-              { id = "scopes", size = 0.25 },
-              "breakpoints",
-              "stacks",
-              "watches",
-            },
-            size = 40, -- 40 columns
-            position = "right",
-          },
-          {
-            elements = {
-              "repl",
-              "console",
-            },
-            size = 0, -- 25% of total lines
-            position = "bottom",
-          },
-        },
-        floating = {
-          max_height = nil, -- These can be integers or a float between 0 and 1.
-          max_width = nil, -- Floats will be treated as percentage of your screen.
-          mappings = {
-            close = { "q", "<Esc>" },
-          },
-        },
-        windows = { indent = 1 },
-        render = {
-          max_type_length = nil, -- Can be integer or nil.
-        },
-      })
-
-      -- We know dap exists because we load dapui after it
-      local dap = require("dap")
-
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open(1)
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
-
-      vim.api.nvim_create_user_command("DapUIOpen", function()
-        dapui.open()
-      end, {})
-
-      vim.api.nvim_create_user_command("DapUIClose", function()
-        dapui.close()
-      end, {})
-    end,
+    {
+      "microsoft/vscode-js-debug",
+      tag = "v1.74.1",
+      build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+    },
   },
-  {
-    "mfussenegger/nvim-dap",
-    dependencies = {
-      {
-        "theHamsta/nvim-dap-virtual-text",
-        config = function()
-          local dvt = require("nvim-dap-virtual-text")
-
-          dvt.setup()
-
-          vim.g.dap_virtual_text = true
-        end,
+  init = function()
+    local mappings = {
+      n = {
+        ["<leader>dc"] = { "<cmd>DapContinue<CR>", "dap continue" },
+        ["<leader>dt"] = { "<cmd>DapTerminate<CR>", "dap terminate" },
+        ["<leader>dk"] = { "<cmd>lua require('dap.ui.widgets').hover()<CR>", "dap hover" },
+        ["<leader>do"] = { "<cmd>lua require('dap').step_over()<CR>", "dap step over" },
+        ["<leader>di"] = { "<cmd>lua require('dap').step_into()<CR>", "dap step into" },
+        ["<leader>de"] = { "<cmd>lua require('dap').step_out()<CR>", "dap step out" },
+        ["<leader>db"] = { "<cmd>DapToggleBreakpoint<CR>", "dap toggle breakpoint" },
       },
-      {
-        "nvim-telescope/telescope-dap.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim" },
-        config = function()
-          local telescope = require("telescope")
+    }
+    require("core.utils").load_mappings(mappings)
+  end,
+  config = function()
+    local dap = require("dap")
 
-          telescope.load_extension("dap")
-        end,
-      },
-    },
-    config = function()
-      local dap = require("dap")
-      local sign = vim.fn.sign_define
+    require("dap-vscode-js").setup({
+      debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
+      adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" }, -- which adapters to register in nvim-dap
+    })
 
-      -- for catpuccin
-      sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
-      sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
-      sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
-
-      dap.adapters.delve = {
-        type = "server",
-        port = "${port}",
-        executable = {
-          command = "dlv",
-          args = { "dap", "-l", "127.0.0.1:${port}" },
-        },
-      }
-
-      -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
-      dap.configurations.go = {
+    -- JS/TS
+    for _, language in ipairs({ "typescript", "javascript", "svelte" }) do
+      dap.configurations[language] = {
         {
-          type = "delve",
-          name = "Debug",
+          type = "pwa-node",
+          request = "attach",
+          processId = require("dap.utils").pick_process,
+          name = "Attach debugger to existing `node --inspect` process",
+          sourceMaps = true,
+          resolveSourceMapLocations = {
+            "${workspaceFolder}/**",
+            "!**/node_modules/**",
+          },
+          cwd = "${workspaceFolder}/src",
+          skipFiles = { "${workspaceFolder}/node_modules/**/*.js" },
+        },
+        {
+          type = "pwa-chrome",
+          name = "Launch Chrome to debug client",
           request = "launch",
+          url = "http://localhost:5173",
+          sourceMaps = true,
+          protocol = "inspector",
+          port = 9222,
+          webRoot = "${workspaceFolder}/src",
+          skipFiles = { "**/node_modules/**/*", "**/@vite/*", "**/src/client/*", "**/src/*" },
+        },
+        language == "javascript" and {
+          type = "pwa-node",
+          request = "launch",
+          name = "Launch file in new node process",
           program = "${file}",
-        },
-        {
-          type = "delve",
-          name = "Debug test", -- configuration for debugging test files
-          request = "launch",
-          mode = "test",
-          program = "${file}",
-        },
-        -- works with go.mod packages and sub packages
-        {
-          type = "delve",
-          name = "Debug test (go.mod)",
-          request = "launch",
-          mode = "test",
-          program = "./${relativeFileDirname}",
-        },
+          cwd = "${workspaceFolder}",
+        } or nil,
       }
+    end
 
-      dap.adapters["pwa-node"] = {
-        type = "server",
-        port = "${port}",
-        executable = {
-          command = "js-debug-adapter", -- As I'm using mason, this will be in the path
-          args = { "${port}" },
-        },
-      }
+    -- We use this to change the port in case the default one is already in use
+    vim.api.nvim_create_user_command("DapNodeSetPort", function(opts)
+      for _, language in ipairs({ "typescript", "javascript", "svelte" }) do
+        local configs = require("dap").configurations[language]
 
-      for _, language in ipairs({ "typescript", "javascript" }) do
-        dap.configurations[language] = {
-          {
-            type = "pwa-node",
-            request = "attach",
-            name = "Attach to node",
-            processId = require("dap.utils").pick_process,
-            cwd = "${workspaceFolder}",
+        dap.configurations[language][#configs + 1] = {
+          type = "pwa-node",
+          request = "attach",
+          name = "Attach (" .. opts.args .. ")",
+          processId = require("dap.utils").pick_process,
+          cwd = "${workspaceFolder}",
+          port = opts.args,
+          resolveSourceMapLocations = {
+            "${workspaceFolder}/**",
+            "!**/node_modules/**",
           },
         }
       end
+    end, { nargs = 1 })
+    -- END JS/TS
 
-      vim.api.nvim_create_user_command("DapNodeSetPort", function(opts)
-        for _, language in ipairs({ "typescript", "javascript" }) do
-          local configs = require("dap").configurations[language]
+    -- GOLANG
+    dap.adapters.delve = {
+      type = "server",
+      port = "${port}",
+      executable = {
+        command = "dlv",
+        args = { "dap", "-l", "127.0.0.1:${port}" },
+      },
+    }
 
-          dap.configurations[language][#configs + 1] = {
-            type = "pwa-node",
-            request = "attach",
-            name = "Attach (" .. opts.args .. ")",
-            processId = require("dap.utils").pick_process,
-            cwd = "${workspaceFolder}",
-            port = opts.args,
-          }
-        end
-      end, { nargs = 1 })
+    -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
+    dap.configurations.go = {
+      {
+        type = "delve",
+        name = "Debug",
+        request = "launch",
+        program = "${file}",
+      },
+      {
+        type = "delve",
+        name = "Debug test", -- configuration for debugging test files
+        request = "launch",
+        mode = "test",
+        program = "${file}",
+      },
+      -- works with go.mod packages and sub packages
+      {
+        type = "delve",
+        name = "Debug test (go.mod)",
+        request = "launch",
+        mode = "test",
+        program = "./${relativeFileDirname}",
+      },
+    }
+    -- END GOLANG
 
-      require("dap.ext.vscode").load_launchjs(
-        nil,
-        {
-          node = { "javascript", "javascriptreact", "typescriptreact", "typescript" },
-          ["pwa-node"] = { "javascript", "javascriptreact", "typescriptreact", "typescript" },
-        }
-      )
-    end,
-    init = function()
-      local mappings = {
-        n = {
-          ["<leader>dc"] = { "<cmd>DapContinue<CR>", "dap continue" },
-          ["<leader>dt"] = { "<cmd>DapTerminate<CR>", "dap terminate" },
-          ["<leader>dk"] = { "<cmd>lua require('dap.ui.widgets').hover()<CR>", "dap hover" },
-          ["<leader>do"] = { "<cmd>lua require('dap').step_over()<CR>", "dap step over" },
-          ["<leader>di"] = { "<cmd>lua require('dap').step_into()<CR>", "dap step into" },
-          ["<leader>de"] = { "<cmd>lua require('dap').step_out()<CR>", "dap step out" },
-          ["<leader>db"] = { "<cmd>DapToggleBreakpoint<CR>", "dap toggle breakpoint" },
-        },
-      }
-      require("core.utils").load_mappings(mappings)
-    end,
-  },
+    require("nvim-dap-virtual-text").setup()
+
+    require("dapui").setup()
+    local dapui = require("dapui")
+    dap.listeners.after.event_initialized["dapui_config"] = function()
+      dapui.open({ reset = true })
+    end
+    dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+    dap.listeners.before.event_exited["dapui_config"] = dapui.close
+  end,
 }

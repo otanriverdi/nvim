@@ -1,6 +1,7 @@
 local function on_attach(client, bufnr)
   client.server_capabilities.documentFormattingProvider = false
   client.server_capabilities.documentRangeFormattingProvider = false
+  client.server_capabilities.semanticTokensProvider = nil
 
   local mappings = {
     n = {
@@ -265,7 +266,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "neovim/nvim-lspconfig",
-      "rcarriga/nvim-dap-ui",
+      "mfussenegger/nvim-dap",
     },
     ft = "rust",
     config = function()

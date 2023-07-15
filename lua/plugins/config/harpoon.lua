@@ -1,5 +1,10 @@
 return {
   "ThePrimeagen/harpoon",
+  config = function()
+    require("harpoon").setup({
+      tabline = false,
+    })
+  end,
   init = function()
     local mappings = {
       n = {
