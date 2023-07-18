@@ -107,6 +107,7 @@ return {
       },
       {
         "j-hui/fidget.nvim",
+        tag = "legacy",
         config = function()
           require("fidget").setup({
             window = {
@@ -124,9 +125,9 @@ return {
         vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
       end
 
-      lspSymbol("Error", "")
-      lspSymbol("Info", "")
-      lspSymbol("Hint", "")
+      lspSymbol("Error", "󰅚")
+      lspSymbol("Info", "")
+      lspSymbol("Hint", "󰌶")
       lspSymbol("Warn", "")
 
       vim.diagnostic.config({
