@@ -101,6 +101,22 @@ return {
     end, { nargs = 1 })
     -- END JS/TS
 
+    -- Cense
+    local configs = require("dap").configurations.typescript
+    dap.configurations.typescript[#configs + 1] = {
+      name = "Debug Cense Server",
+      port = 9230,
+      type = "pwa-node",
+      request = "attach",
+      skipFiles = {
+        "${workspaceFolder}/node_modules/**/*.js",
+        "<node_internals>/**",
+      },
+      sourceMapPathOverrides = {
+        ["webpack://?:*/*"] = "${workspaceFolder}/apps/server/*",
+      },
+    }
+
     -- GOLANG
     dap.adapters.delve = {
       type = "server",

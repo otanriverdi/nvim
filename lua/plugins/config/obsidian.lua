@@ -8,6 +8,9 @@ return {
       completion = {
         nvim_cmp = true, -- if using nvim-cmp, otherwise set to false
       },
+      daily_notes = {
+        folder = "Daily notes",
+      },
     })
   end,
   init = function()
